@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { getUsers } from "../../../server/server";
+import { getUsersAPI } from "../../../server/server";
 import "./users.scss";
-import { User } from "../../../interfaces/IUser";
+import { IUser } from "../../../interfaces/IUser";
 
 const Users = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
   useEffect(() => {
     const fetchUsers = async () => {
-      const fetchedUsers = await getUsers();
+      const fetchedUsers = await getUsersAPI();
       setUsers(fetchedUsers);
     };
     fetchUsers();
@@ -16,8 +16,8 @@ const Users = () => {
   return (
     <div>
       <h1>Users</h1>
-      <table className="table-users">
-        <thead className="table-header">
+      <table className="users-table">
+        <thead className="users-table__header">
           <tr>
             <th></th>
             <th>ID</th>
@@ -29,9 +29,9 @@ const Users = () => {
             <th></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="users-table__body">
           {users.map((user) => (
-            <tr className="row" key={user.id}>
+            <tr className="users-table__body__row" key={user.id}>
               <td>
                 {" "}
                 <input type="checkbox" />

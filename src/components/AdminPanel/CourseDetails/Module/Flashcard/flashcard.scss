@@ -1,12 +1,14 @@
 $hover-border-color: #8fcadd;
 $hover-background-color: #cbe6ef;
 
-.course-details {
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   h3,
   h4 {
     margin: 0;
   }
-
   &__bar {
     display: flex;
     justify-content: space-between;
@@ -32,36 +34,8 @@ $hover-background-color: #cbe6ef;
         margin-left: 10px;
       }
     }
-
-    &--details {
-      margin: 0px 20px;
-      border: none;
-
-      h4 {
-        margin-left: 10px;
-      }
-    }
-
-    &--quizzes {
-      margin-top: 10px;
-    }
-  }
-
-  &__module-buttons,
-  &__quiz-buttons {
-    display: flex;
-    gap: 10px;
-    margin-right: 10px;
-
-    &__button {
-      background-color: #fff;
-      padding: 3px 10px;
-      border: 1px solid #777;
-
-      &:hover {
-        cursor: pointer;
-        background-color: #cfc1c6;
-      }
+    &__buttons {
+      display: flex;
     }
   }
 }

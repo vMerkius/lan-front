@@ -1,34 +1,39 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  getCourse,
-  getCourseAllModules,
-  getCourseAllQuizzes,
+  deleteModuleAPI,
+  deleteQuizAPI,
+  getCourseAPI,
+  getCourseAllModulesAPI,
+  getCourseAllQuizzesAPI,
 } from "../../../server/server";
-import { Course } from "../../../interfaces/ICourse";
-import { Module } from "../../../interfaces/IModule";
+import { ICourse } from "../../../interfaces/ICourse";
+import { IModule } from "../../../interfaces/IModule";
 import { IQuiz } from "../../../interfaces/IQuiz";
 import "./coursedetails.scss";
+import AddModuleOrQuiz from "./AddModuleOrQuiz/AddModuleOrQuiz";
 
 const CourseDetails = () => {
   const navigate = useNavigate();
   const value = useParams();
   const id = Number(value.id);
+  const [showAddSection, setShowAddSection] = useState<boolean>(false);
+  const [addModule, setAddModule] = useState<boolean>();
   const [showModules, setShowModules] = useState<boolean>(false);
   const [showQuizzes, setShowQuizzes] = useState<boolean>(false);
-  const [course, setCourse] = useState<Course>({
+  const [course, setCourse] = useState<ICourse>({
     id: 0,
     level: "",
     language: "",
   });
   const [quizzes, setQuizzes] = useState<IQuiz[]>([]);
-  const [modules, setModules] = useState<Module[]>([]);
+  const [modules, setModules] = useState<IModule[]>([]);
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const fetchedCourse = await getCourse(id);
-      const fetchedQuizzes = await getCourseAllQuizzes(id);
-      const fetchedModules = await getCourseAllModules(id);
+      const fetchedCourse = await getCourseAPI(id);
+      const fetchedQuizzes = await getCourseAllQuizzesAPI(id);
+      const fetchedModules = await getCourseAllModulesAPI(id);
       setCourse(fetchedCourse);
       setQuizzes(fetchedQuizzes);
       setModules(fetchedModules);
@@ -47,15 +52,56 @@ const CourseDetails = () => {
   const handleClickLessons = (idModule: number) => {
     navigate(`/courses/${id}/module/${idModule}/lessons`);
   };
+  const handleAddClick = (module: boolean) => {
+    module === true ? setAddModule(true) : setAddModule(false);
+    setShowAddSection(true);
+  };
+  const handleDeleteQuiz = async (id: number) => {
+    try {
+      await deleteQuizAPI(id);
+      setQuizzes(quizzes.filter((quiz) => quiz.id !== id));
+    } catch (error) {
+      alert("Unable to delete quiz");
+    }
+  };
+  const handleDeleteModule = async (id: number) => {
+    try {
+      await deleteModuleAPI(id);
+      setModules(modules.filter((module) => module.id !== id));
+    } catch (error) {
+      alert("Unable to delete module");
+    }
+  };
 
   return (
     <div className="course-details">
+      {showAddSection && (
+        <AddModuleOrQuiz
+          setShowAddSection={setShowAddSection}
+          module={addModule}
+          cId={course.id}
+        />
+      )}
       <h1>Course:</h1>
+      <button
+        onClick={() => {
+          handleAddClick(false);
+        }}
+      >
+        Add Quiz
+      </button>
+      <button
+        onClick={() => {
+          handleAddClick(true);
+        }}
+      >
+        Add Moodule
+      </button>
       <h2>
         {course.language} - {course.level}
       </h2>
       <div
-        className="bar bar-main"
+        className="course-details__bar course-details__bar--main"
         onClick={() => {
           setShowModules(!showModules);
         }}
@@ -71,11 +117,30 @@ const CourseDetails = () => {
               handleClickModules(module.id);
             }}
           >
-            <div className="bar bar-details">
+            <div className="course-details__bar course-details__bar--details">
               <h4>{module.name}</h4>
-              <div className="module-buttons">
-                <button>lessons</button>
-                <button>flashcards</button>
+              <div className="course-details__module-buttons">
+                <button className="course-details__module-buttons__button">
+                  lessons
+                </button>
+                <button
+                  className="course-details__module-buttons__button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClickFlashcards(module.id);
+                  }}
+                >
+                  flashcards
+                </button>
+                <button
+                  className="course-details__module-buttons__button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteModule(module.id);
+                  }}
+                >
+                  -
+                </button>
                 <button>more</button>
               </div>
             </div>
@@ -83,7 +148,7 @@ const CourseDetails = () => {
         ))}
 
       <div
-        className="bar bar-main bar-quizzes"
+        className="course-details__bar course-details__bar--main course-details__bar--quizzes"
         onClick={() => {
           setShowQuizzes(!showQuizzes);
         }}
@@ -99,9 +164,18 @@ const CourseDetails = () => {
               handleClickQuiz(quiz.id);
             }}
           >
-            <div className="bar bar-details">
+            <div className="course-details__bar course-details__bar--details">
               <h4>{quiz.name}</h4>
-              <div className="quiz-buttons">
+              <div className="course-details__quiz-buttons">
+                <button
+                  className="course-details__quiz-buttons__button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteQuiz(quiz.id);
+                  }}
+                >
+                  -
+                </button>
                 <button
                   onClick={() => {
                     handleClickQuiz(quiz.id);

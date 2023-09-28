@@ -4,3 +4,4 @@ export interface IQuestion {
   correctAnswer: string;
   quizId: number;
 }
+export type IQuestionCreation = Omit<IQuestion, "id">;

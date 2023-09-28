@@ -1,4 +1,4 @@
-.question-container {
+.module-quiz-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,8 +16,13 @@
     background-color: #fff;
     padding: 40px 50px;
 
-    h2 {
+    &__heading {
       margin: 0;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
     }
   }
 }

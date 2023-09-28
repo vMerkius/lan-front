@@ -11,33 +11,44 @@ const SideBar = () => {
     setChoice(selected);
   };
   return (
-    <aside className="side-bar">
+    <aside className="sidebar-container">
       <h1>spiki</h1>
-      <nav>
-        <ul>
-          {/* <li className={`${choice === "Dashboard" ? "active" : ""}`}>
-            <Link to="/">
-              <h2 onClick={() => handleClick("Dashboard")}>Dashboard</h2>
-            </Link>
-          </li> */}
-          <li className={`${choice === "Dashboard" ? "active" : ""}`}>
+      <nav className="sidebar-container__navigation">
+        <ul className="navigation-list">
+          <li
+            className={`navigation-list__item ${
+              choice === "Dashboard" ? "navigation-list__item--active" : ""
+            }`}
+          >
             <Link to="/">
               <h2 onClick={() => handleClick("Dashboard")}>
                 {t("sidebar.dashboard")}
               </h2>
             </Link>
           </li>
-          <li className={`${choice === "Stats" ? "active" : ""}`}>
+          <li
+            className={`navigation-list__item ${
+              choice === "Stats" ? "navigation-list__item--active" : ""
+            }`}
+          >
             <Link to="/stats">
               <h2 onClick={() => handleClick("Stats")}>Stats</h2>
             </Link>
           </li>
-          <li className={`${choice === "Courses" ? "active" : ""}`}>
+          <li
+            className={`navigation-list__item ${
+              choice === "Courses" ? "navigation-list__item--active" : ""
+            }`}
+          >
             <Link to="/courses">
               <h2 onClick={() => handleClick("Courses")}>Courses</h2>
             </Link>
           </li>
-          <li className={`${choice === "Users" ? "active" : ""}`}>
+          <li
+            className={`navigation-list__item ${
+              choice === "Users" ? "navigation-list__item--active" : ""
+            }`}
+          >
             <Link to="/users">
               <h2 onClick={() => handleClick("Users")}>Users</h2>
             </Link>

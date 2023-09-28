@@ -3,3 +3,4 @@ export interface IAnswer {
   name: string;
   questionId: number;
 }
+export type IAnswerCreation = Omit<IAnswer, "id">;

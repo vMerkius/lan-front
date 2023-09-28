@@ -4,3 +4,5 @@ export interface IQuiz {
   description: string;
   courseId: number;
 }
+
+export type IQuizCreation = Omit<IQuiz, "id">;

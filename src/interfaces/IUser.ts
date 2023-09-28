@@ -1,4 +1,4 @@
-export interface User {
+export interface IUser {
   id: number;
   name: string;
   email: string;
@@ -6,3 +6,5 @@ export interface User {
   age: number;
   country: string;
 }
+
+export type IUserCreation = Omit<IUser, "id">;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { IQuiz } from "../../../../interfaces/IQuiz";
 import {
-  deleteQuestion,
-  getModuleQuiz,
-  getQuizQuestions,
+  deleteQuestionAPI,
+  getModuleQuizAPI,
+  getQuizQuestionsAPI,
 } from "../../../../server/server";
 import { useParams } from "react-router";
 import { IQuestion } from "../../../../interfaces/IQuestion";
@@ -28,8 +28,8 @@ const Quiz = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const fetchedQuiz = await getModuleQuiz(id);
-      const fetchedQuestions = await getQuizQuestions(id);
+      const fetchedQuiz = await getModuleQuizAPI(id);
+      const fetchedQuestions = await getQuizQuestionsAPI(id);
       setQuiz(fetchedQuiz);
       setQuestions(fetchedQuestions);
     };
@@ -38,7 +38,7 @@ const Quiz = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await deleteQuestion(id);
+      await deleteQuestionAPI(id);
       const newQuestions = questions.filter((question) => question.id !== id);
       setQuestions(newQuestions);
     } catch (error) {
@@ -46,11 +46,11 @@ const Quiz = () => {
     }
   };
   return (
-    <div className="quiz-details">
+    <div className="quiz-container">
       {showAddSection && <AddQuestion setShowAddSection={setShowAddSection} />}
       <h1>Quiz</h1>
       <h2>{quiz.description}</h2>
-      <div className="add-question-section">
+      <div className="quiz-container__add">
         <h3>Add Question</h3>
         <button
           onClick={() => {
@@ -69,9 +69,9 @@ const Quiz = () => {
             );
           }}
         >
-          <div className="bar bar-main">
+          <div className="quiz-container__bar quiz-container__bar--main">
             <h4>{question.description}</h4>
-            <div style={{ display: "flex" }}>
+            <div className="quiz-container__bar__buttons">
               <button
                 onClick={() => {
                   handleDelete(question.id);

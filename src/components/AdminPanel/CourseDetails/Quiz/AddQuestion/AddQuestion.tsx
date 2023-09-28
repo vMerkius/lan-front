@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "./add-question.scss";
-import { addAnswers, addQuestion } from "../../../../../server/server";
-const AddQuestion = ({ setShowAddSection }) => {
+import { addAnswersAPI, addQuestionAPI } from "../../../../../server/server";
+
+type AddQuestionProps = {
+  setShowAddSection: (show: boolean) => void;
+};
+
+const AddQuestion: React.FC<AddQuestionProps> = ({ setShowAddSection }) => {
   const [answerAmount, setAnswerAmount] = useState(2);
   const [rightAnswer, setRightAnswer] = useState(1);
   const [formDataQuestion, setFormDataQuestion] = useState({
@@ -38,7 +43,7 @@ const AddQuestion = ({ setShowAddSection }) => {
       correctAnswer: "rightAnswer",
       quizId: 1,
     };
-    const QuestionAdded = await addQuestion(questionSend);
+    const QuestionAdded = await addQuestionAPI(questionSend);
     const quetionAddedId = QuestionAdded.id;
     const answerSend = [];
     for (let i = 0; i < answerAmount; i++) {
@@ -48,12 +53,12 @@ const AddQuestion = ({ setShowAddSection }) => {
       });
     }
     console.log(answerSend);
-    addAnswers(answerSend);
+    addAnswersAPI(answerSend);
     window.location.reload();
   };
   return (
-    <div className="container">
-      <div className="add-question">
+    <div className="question-container">
+      <div className="question-container__add">
         <button
           onClick={() => {
             setShowAddSection(false);
@@ -61,7 +66,7 @@ const AddQuestion = ({ setShowAddSection }) => {
         >
           X
         </button>
-        <h2>AddQuestion</h2>
+        <h2>Add Question</h2>
         <form>
           <label>
             Pytanie:

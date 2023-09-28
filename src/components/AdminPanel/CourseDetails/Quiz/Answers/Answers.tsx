@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import { IAnswer } from "../../../../../interfaces/IAnswer";
-import { deleteAnswer, getQuestionAnswers } from "../../../../../server/server";
+import {
+  deleteAnswerAPI,
+  getQuestionAnswersAPI,
+} from "../../../../../server/server";
 
 const Answers = ({ id }: any) => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
 
   useEffect(() => {
     const fetchAnswers = async () => {
-      const fetchedAnswers = await getQuestionAnswers(id);
+      const fetchedAnswers = await getQuestionAnswersAPI(id);
       setAnswers(fetchedAnswers);
     };
     fetchAnswers();
   }, []);
   const handleDelete = async (id: number) => {
     try {
-      await deleteAnswer(id);
+      await deleteAnswerAPI(id);
       const newAnswers = answers.filter((answer) => answer.id !== id);
       setAnswers(newAnswers);
     } catch {

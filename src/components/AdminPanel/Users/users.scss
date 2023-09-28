@@ -1,35 +1,25 @@
-.table-users {
+.users-table {
   color: #000;
   border-collapse: collapse;
   width: 100%;
   text-align: left;
   margin-top: 20px;
 
-  .table-header {
+  &__header {
     background-color: #8fcadd;
   }
 
-  tbody {
-    tr:nth-child(even) {
+  &__body {
+    &__row:nth-child(even) {
       background: #cbe6ef;
     }
 
-    tr:nth-child(odd) {
+    &__row:nth-child(odd) {
       background: #fff;
     }
 
-    .row:hover {
+    &__row:hover {
       background-color: #e11762;
     }
-  }
-
-  .tableCell,
-  .headerCell {
-    border: 1px solid #dddddd;
-    padding: 8px;
-  }
-
-  .headerCell {
-    font-weight: bold;
   }
 }
