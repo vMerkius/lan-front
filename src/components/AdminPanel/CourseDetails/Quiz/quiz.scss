@@ -1,10 +1,27 @@
 $hover-border-color: #8fcadd;
 $hover-background-color: #cbe6ef;
+$light-red: #ee6767;
+$dark-blue: #0575c0;
+$border: #777;
 
 .quiz-container {
   h3,
   h4 {
     margin: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    h1,
+    h2 {
+      margin: 10px 0px 0px 10px;
+    }
+
+    &__button {
+      margin: 10px 10px 0px 0px;
+    }
   }
 
   &__bar {
@@ -32,9 +49,6 @@ $hover-background-color: #cbe6ef;
         margin-left: 10px;
       }
     }
-    &__buttons {
-      display: flex;
-    }
 
     &-details {
       margin: 0px 20px;
@@ -47,6 +61,29 @@ $hover-background-color: #cbe6ef;
 
     &-quizzes {
       margin-top: 10px;
+    }
+    &__buttons {
+      display: flex;
+      gap: 10px;
+      margin-right: 10px;
+
+      &__button {
+        background-color: #fff;
+        padding: 3px 10px;
+        border: 1px solid $border;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $dark-blue;
+          color: #fff;
+        }
+
+        &--delete {
+          &:hover {
+            background-color: $light-red;
+          }
+        }
+      }
     }
   }
 }

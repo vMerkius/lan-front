@@ -2,6 +2,8 @@ import axios from "axios";
 import { IQuestion } from "../interfaces/IQuestion";
 import { IQuiz, IQuizCreation } from "../interfaces/IQuiz";
 import { IModuleCreation } from "../interfaces/IModule";
+import { IWordCreation } from "../interfaces/IWord";
+import { IFlashcardCreation } from "../interfaces/IFlashcard";
 const URL = "https://localhost:7275/api";
 
 // User API
@@ -181,7 +183,7 @@ export const getFlashcardsAPI = async (id: number) => {
   }
 };
 
-export const addFlashcardAPI = async (flashcard: any) => {
+export const addFlashcardAPI = async (flashcard: IFlashcardCreation) => {
   try {
     const res = await axios.post(`${URL}/flashcard`, flashcard);
     return res.data;
@@ -218,6 +220,16 @@ export const deleteWordAPI = async (id: number) => {
     return res.data;
   } catch (error) {
     console.error("Failed to delete word:", error);
+    return {};
+  }
+};
+
+export const addWordAPI = async (word: IWordCreation) => {
+  try {
+    const res = await axios.post(`${URL}/word`, word);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add word:", error);
     return {};
   }
 };

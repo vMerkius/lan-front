@@ -32,13 +32,22 @@ const AddModuleOrQuiz: React.FC<AddModuleOrQuizProps> = ({
       courseId: cId,
     };
 
-    module ? addModuleAPI(dataSend) : addQuizAPI(dataSend);
-    window.location.reload();
+    if (dataSend.name === "" || dataSend.description === "") {
+      alert("Please fill all the fields");
+    } else {
+      if (module) {
+        addModuleAPI(dataSend);
+      } else {
+        addQuizAPI(dataSend);
+      }
+      window.location.reload();
+    }
   };
   return (
     <div className="module-quiz-container">
       <div className="module-quiz-container__add">
         <button
+          className="cancel-btn"
           onClick={() => {
             setShowAddSection(false);
           }}
@@ -46,23 +55,25 @@ const AddModuleOrQuiz: React.FC<AddModuleOrQuizProps> = ({
           X
         </button>
         {module ? (
-          <h2 className="module-quiz-container__add__heading">add Module</h2>
+          <h2 className="module-quiz-container__add__heading">Module</h2>
         ) : (
-          <h2 className="module-quiz-container__add__heading">Add Quiz</h2>
+          <h2 className="module-quiz-container__add__heading">Quiz</h2>
         )}
         <form className="module-quiz-container__add__form">
-          <label>
-            Name:
+          <label className="module-quiz-container__add__form__row">
+            <span>Name:</span>
             <input
+              className="input-style"
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
             />
           </label>
-          <label>
-            Description:
+          <label className="module-quiz-container__add__form__row">
+            <span>Description:</span>
             <input
+              className="input-style"
               type="text"
               name="description"
               value={formData.description}
@@ -71,6 +82,7 @@ const AddModuleOrQuiz: React.FC<AddModuleOrQuizProps> = ({
           </label>
 
           <button
+            className="add-btn module-quiz-container__add__form__button"
             onClick={(e) => {
               e.preventDefault();
               handleAdd();

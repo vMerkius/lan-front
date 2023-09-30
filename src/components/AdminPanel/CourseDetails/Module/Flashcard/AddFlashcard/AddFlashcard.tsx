@@ -33,20 +33,22 @@ const AddFlashcard: React.FC<AddFlashcardProps> = ({
     window.location.reload();
   };
   return (
-    <div className="container">
-      <div className="container__add">
+    <div className="add-flashcard-container">
+      <div className="add-flashcard-container__add">
         <button
+          className="cancel-btn"
           onClick={() => {
             setShowAddSection(false);
           }}
         >
           X
         </button>
-        <h2>add Flashcard</h2>
-        <form>
-          <label>
+        <h2 className="add-flashcard-container__add__heading">Flashcard</h2>
+        <form className="add-flashcard-container__add__form">
+          <label className="add-flashcard-container__add__form__row">
             Name:
             <input
+              className="input-style"
               type="text"
               name="name"
               value={formData.name}
@@ -55,6 +57,7 @@ const AddFlashcard: React.FC<AddFlashcardProps> = ({
           </label>
 
           <button
+            className="add-btn add-flashcard-container__add__form__button"
             onClick={(e) => {
               e.preventDefault();
               handleAdd();

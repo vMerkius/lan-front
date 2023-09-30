@@ -82,21 +82,28 @@ const CourseDetails = () => {
           cId={course.id}
         />
       )}
-      <h1>Course:</h1>
-      <button
-        onClick={() => {
-          handleAddClick(false);
-        }}
-      >
-        Add Quiz
-      </button>
-      <button
-        onClick={() => {
-          handleAddClick(true);
-        }}
-      >
-        Add Moodule
-      </button>
+      <div className="course-details__header">
+        <h1>Course:</h1>
+
+        <div className="course-details__header__buttons">
+          <button
+            className="course-details__header__buttons__button add-btn--big"
+            onClick={() => {
+              handleAddClick(false);
+            }}
+          >
+            Add Quiz
+          </button>
+          <button
+            className="course-details__header__buttons__button add-btn--big"
+            onClick={() => {
+              handleAddClick(true);
+            }}
+          >
+            Add Module
+          </button>
+        </div>
+      </div>
       <h2>
         {course.language} - {course.level}
       </h2>
@@ -133,7 +140,7 @@ const CourseDetails = () => {
                   flashcards
                 </button>
                 <button
-                  className="course-details__module-buttons__button"
+                  className="course-details__module-buttons__button course-details__module-buttons__button--delete"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDeleteModule(module.id);
@@ -141,7 +148,9 @@ const CourseDetails = () => {
                 >
                   -
                 </button>
-                <button>more</button>
+                <button className="course-details__quiz-buttons__button">
+                  more
+                </button>
               </div>
             </div>
           </div>
@@ -168,7 +177,7 @@ const CourseDetails = () => {
               <h4>{quiz.name}</h4>
               <div className="course-details__quiz-buttons">
                 <button
-                  className="course-details__quiz-buttons__button"
+                  className="course-details__quiz-buttons__button course-details__quiz-buttons__button--delete"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDeleteQuiz(quiz.id);
@@ -177,6 +186,7 @@ const CourseDetails = () => {
                   -
                 </button>
                 <button
+                  className="course-details__quiz-buttons__button"
                   onClick={() => {
                     handleClickQuiz(quiz.id);
                   }}

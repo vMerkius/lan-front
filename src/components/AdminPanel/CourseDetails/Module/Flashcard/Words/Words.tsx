@@ -5,9 +5,12 @@ import {
   getFlashcardWordsAPI,
 } from "../../../../../../server/server";
 import "./words.scss";
+import AddWords from "./AddWords/AddWords";
 
 const Words = ({ id }: any) => {
   const [words, setWords] = useState<IWord[]>([]);
+  const [showAddWordsSection, setShowAddWordsSection] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const fetchWords = async () => {
@@ -28,6 +31,9 @@ const Words = ({ id }: any) => {
 
   return (
     <div>
+      {showAddWordsSection && (
+        <AddWords setShowAddWordsSection={setShowAddWordsSection} fId={id} />
+      )}
       {words.map((word) => (
         <div className="word-container" key={word.id}>
           <div className="word-container__main">
@@ -37,6 +43,7 @@ const Words = ({ id }: any) => {
           </div>
 
           <button
+            className="word-container__main__delete-btn"
             onClick={(e) => {
               e.stopPropagation();
               handleDelete(word.id);
@@ -47,7 +54,15 @@ const Words = ({ id }: any) => {
         </div>
       ))}
       <div className="word-add-bar">
-        <button className="add-bar">+</button>
+        <button
+          className="add-bar"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowAddWordsSection(true);
+          }}
+        >
+          +
+        </button>
       </div>
     </div>
   );

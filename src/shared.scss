@@ -1,3 +1,9 @@
+$light-green: #13e065;
+$dark-green: #076914;
+$light-red: #ee6767;
+$dark-red: #e74949;
+$border: #777;
+
 h1,
 h2,
 h3,
@@ -13,35 +19,59 @@ a {
   color: #000;
 }
 
-.add-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #13e065;
-  color: #076914;
-  font-size: 50px;
-  border: none;
-  padding: 20px;
-  border-radius: 5px;
-  position: relative;
-
-  &:hover {
-    background-color: darken(#13e065, 5%);
-    cursor: pointer;
-  }
-}
-
 .add-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #13e065;
-  color: #076914;
+  background-color: $light-green;
+  color: $dark-green;
   font-size: 50px;
   width: 15%;
   height: 35px;
   &:hover {
-    background-color: darken(#13e065, 5%);
+    background-color: darken($light-green, 5%);
     cursor: pointer;
   }
+}
+
+.add-btn--big {
+  background-color: #fff;
+  padding: 3px 10px;
+  border: 1px solid $border;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $light-green;
+  }
+}
+
+.cancel-btn {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin: 5px 5px 0px 0px;
+  background-color: $light-red;
+  padding: 3px 10px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($dark-red, 5%);
+  }
+}
+
+.add-btn {
+  width: 50px;
+  background-color: $light-green;
+  padding: 3px 10px;
+  border: 1px solid $border;
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($light-green, 5%);
+  }
+}
+
+.input-style {
+  border: 1px solid #000;
+  border-radius: 5px;
 }

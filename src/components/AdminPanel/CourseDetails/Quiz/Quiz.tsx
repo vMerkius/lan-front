@@ -47,19 +47,21 @@ const Quiz = () => {
   };
   return (
     <div className="quiz-container">
-      {showAddSection && <AddQuestion setShowAddSection={setShowAddSection} />}
-      <h1>Quiz</h1>
-      <h2>{quiz.description}</h2>
-      <div className="quiz-container__add">
-        <h3>Add Question</h3>
+      {showAddSection && (
+        <AddQuestion idQuiz={id} setShowAddSection={setShowAddSection} />
+      )}
+      <div className="quiz-container__header">
+        <h1>Quiz</h1>
         <button
+          className="quiz-container__header__button add-btn--big"
           onClick={() => {
             setShowAddSection(!showAddSection);
           }}
         >
-          +
+          Add Question
         </button>
       </div>
+      <h2>{quiz.description}</h2>
       {questions.map((question) => (
         <div
           key={question.id}
@@ -73,6 +75,7 @@ const Quiz = () => {
             <h4>{question.description}</h4>
             <div className="quiz-container__bar__buttons">
               <button
+                className="quiz-container__bar__buttons__button quiz-container__bar__buttons__button--delete"
                 onClick={() => {
                   handleDelete(question.id);
                 }}

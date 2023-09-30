@@ -42,14 +42,17 @@ const Flashcards = () => {
           idModule={IdModule}
         />
       )}
-      <h1>Flashcards</h1>
-      <button
-        onClick={() => {
-          setShowAddSection(true);
-        }}
-      >
-        +
-      </button>
+      <div className="flashcard-container__header">
+        <h1>Flashcards</h1>
+        <button
+          className="flashcard-container__header__button add-btn--big"
+          onClick={() => {
+            setShowAddSection(true);
+          }}
+        >
+          Add Flashcard
+        </button>
+      </div>
 
       {flashcards.map((flashcard) => (
         <div
@@ -64,6 +67,7 @@ const Flashcards = () => {
             <h3>{flashcard.name}</h3>
             <div className="flashcard-container__bar__buttons">
               <button
+                className="flashcard-container__bar__buttons__button flashcard-container__bar__buttons__button--delete"
                 onClick={() => {
                   handleDelete(flashcard.id);
                 }}

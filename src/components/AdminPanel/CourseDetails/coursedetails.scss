@@ -1,5 +1,8 @@
 $hover-border-color: #8fcadd;
 $hover-background-color: #cbe6ef;
+$light-red: #ee6767;
+$dark-blue: #0575c0;
+$border: #777;
 
 .course-details {
   h3,
@@ -7,12 +10,28 @@ $hover-background-color: #cbe6ef;
     margin: 0;
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+
+    h1,
+    h2 {
+      margin: 10px 0px 0px 10px;
+    }
+    &__buttons {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      margin-right: 10px;
+    }
+  }
+
   &__bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 0px;
-    border: 1px solid #777;
+    border: 1px solid $border;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     margin: 0px 10px;
 
@@ -56,11 +75,18 @@ $hover-background-color: #cbe6ef;
     &__button {
       background-color: #fff;
       padding: 3px 10px;
-      border: 1px solid #777;
+      border: 1px solid $border;
 
       &:hover {
         cursor: pointer;
-        background-color: #cfc1c6;
+        background-color: $dark-blue;
+        color: #fff;
+      }
+
+      &--delete {
+        &:hover {
+          background-color: $light-red;
+        }
       }
     }
   }
