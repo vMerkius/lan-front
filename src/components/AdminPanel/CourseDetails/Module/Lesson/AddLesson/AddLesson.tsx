@@ -1,17 +1,18 @@
 import { useState } from "react";
-import "./add-flashcard.scss";
-import { addFlashcardAPI } from "../../../../../../server/server";
+import "./add-lesson.scss";
+import { addFlashcardAPI, addLessonAPI } from "../../../../../../server/server";
 
-type AddFlashcardProps = {
+type AddLessonProps = {
   setShowAddSection: (show: boolean) => void;
   idModule: number;
 };
-const AddFlashcard: React.FC<AddFlashcardProps> = ({
+const AddLesson: React.FC<AddLessonProps> = ({
   setShowAddSection,
   idModule,
 }) => {
   const [formData, setFormData] = useState({
     name: "",
+    description: "",
     moduleId: 0,
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,18 +28,16 @@ const AddFlashcard: React.FC<AddFlashcardProps> = ({
       ...formData,
       moduleId: idModule,
     };
-
-    if (dataSend.name === "") {
+    if (dataSend.name === "" || dataSend.description === "") {
       alert("Fill all fields");
     } else {
-      addFlashcardAPI(dataSend);
+      addLessonAPI(dataSend);
       window.location.reload();
     }
   };
-
   return (
-    <div className="add-flashcard-container">
-      <div className="add-flashcard-container__add">
+    <div className="add-lesson-container">
+      <div className="add-lesson-container__add">
         <button
           className="cancel-btn"
           onClick={() => {
@@ -47,9 +46,9 @@ const AddFlashcard: React.FC<AddFlashcardProps> = ({
         >
           X
         </button>
-        <h2 className="add-flashcard-container__add__heading">Flashcard</h2>
-        <form className="add-flashcard-container__add__form">
-          <label className="add-flashcard-container__add__form__row">
+        <h2 className="add-lesson-container__add__heading">Lesson</h2>
+        <form className="add-lesson-container__add__form">
+          <label className="add-lesson-container__add__form__row">
             Name:
             <input
               className="input-style"
@@ -59,9 +58,19 @@ const AddFlashcard: React.FC<AddFlashcardProps> = ({
               onChange={handleChange}
             />
           </label>
+          <label className="add-lesson-container__add__form__row">
+            Description:
+            <input
+              className="input-style"
+              type="text"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </label>
 
           <button
-            className="add-btn add-flashcard-container__add__form__button"
+            className="add-btn add-lesson-container__add__form__button"
             onClick={(e) => {
               e.preventDefault();
               handleAdd();
@@ -75,4 +84,4 @@ const AddFlashcard: React.FC<AddFlashcardProps> = ({
   );
 };
 
-export default AddFlashcard;
+export default AddLesson;

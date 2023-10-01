@@ -127,7 +127,13 @@ const CourseDetails = () => {
             <div className="course-details__bar course-details__bar--details">
               <h4>{module.name}</h4>
               <div className="course-details__module-buttons">
-                <button className="course-details__module-buttons__button">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClickLessons(module.id);
+                  }}
+                  className="course-details__module-buttons__button"
+                >
                   lessons
                 </button>
                 <button

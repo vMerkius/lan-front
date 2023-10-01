@@ -4,6 +4,7 @@ import { IQuiz, IQuizCreation } from "../interfaces/IQuiz";
 import { IModuleCreation } from "../interfaces/IModule";
 import { IWordCreation } from "../interfaces/IWord";
 import { IFlashcardCreation } from "../interfaces/IFlashcard";
+import { ILessonCreation } from "../interfaces/ILesson";
 const URL = "https://localhost:7275/api";
 
 // User API
@@ -230,6 +231,57 @@ export const addWordAPI = async (word: IWordCreation) => {
     return res.data;
   } catch (error) {
     console.error("Failed to add word:", error);
+    return {};
+  }
+};
+
+//Lessons API
+export const getLessonsAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/module/all/lessons/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch lessons:", error);
+    return [];
+  }
+};
+
+export const deleteLessonAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/lesson/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete lesson:", error);
+    return {};
+  }
+};
+
+export const addLessonAPI = async (lesson: ILessonCreation) => {
+  try {
+    const res = await axios.post(`${URL}/lesson`, lesson);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add lesson:", error);
+    return {};
+  }
+};
+
+//Subject API
+export const getLessonSubjectsAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/lesson/all/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch subjects:", error);
+    return {};
+  }
+};
+export const deleteSubjectAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/subject/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete subject:", error);
     return {};
   }
 };
