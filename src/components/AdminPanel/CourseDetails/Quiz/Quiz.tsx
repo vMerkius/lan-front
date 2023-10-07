@@ -10,6 +10,8 @@ import { IQuestion } from "../../../../interfaces/IQuestion";
 import "./quiz.scss";
 import Answers from "./Answers/Answers";
 import AddQuestion from "./AddQuestion/AddQuestion";
+import EditQuiz from "./EditQuiz";
+import EditQuestion from "./EditQuestion";
 
 const Quiz = () => {
   const value = useParams();
@@ -17,6 +19,9 @@ const Quiz = () => {
   const [selectedQuestionId, setSelectedQuestionId] = useState<
     number | undefined | null
   >(null);
+  const [editingQuestionId, setEditingQuestionId] = useState<number | null>(
+    null
+  );
   const [quiz, setQuiz] = useState<IQuiz>({
     id: 0,
     name: "",
@@ -61,19 +66,30 @@ const Quiz = () => {
           Add Question
         </button>
       </div>
-      <h2>{quiz.description}</h2>
+
+      <EditQuiz quiz={quiz} setQuiz={setQuiz} />
+
       {questions.map((question) => (
         <div key={question.id}>
           <div
             onClick={(e) => {
               e.stopPropagation();
+              setEditingQuestionId(null);
               setSelectedQuestionId((prevId) =>
                 prevId === question.id ? null : question.id
               );
             }}
             className="quiz-container__bar quiz-container__bar--main"
           >
-            <h4>{question.description}</h4>
+            {/* <h4>{question.description}</h4> */}
+            <EditQuestion
+              editingQuestionId={editingQuestionId}
+              question={question}
+              setEditingQuestionId={setEditingQuestionId}
+              idQuiz={id}
+              questions={questions}
+              setQuestions={setQuestions}
+            />
             <div className="quiz-container__bar__buttons">
               <button
                 className="quiz-container__bar__buttons__button quiz-container__bar__buttons__button--delete"

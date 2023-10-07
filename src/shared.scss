@@ -2,7 +2,9 @@ $light-green: #13e065;
 $dark-green: #076914;
 $light-red: #ee6767;
 $dark-red: #e74949;
+$dark-blue: #0575c0;
 $border: #777;
+$hover-border-color: #8fcadd;
 
 h1,
 h2,
@@ -81,7 +83,38 @@ a {
   }
 }
 
+.input-container {
+  display: flex;
+  gap: 10px;
+}
+
 .input-style {
   border: 1px solid #000;
   border-radius: 5px;
+}
+
+.input-save {
+  margin-right: 0 !important;
+  background-color: #fff;
+  padding: 3px 10px;
+  border: 1px solid $border;
+
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: $dark-blue;
+  }
+}
+
+.input-cancel {
+  margin-left: 0 !important;
+  background-color: #fff;
+  padding: 3px 10px;
+  border: 1px solid $border;
+
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+    background-color: $light-red;
+  }
 }

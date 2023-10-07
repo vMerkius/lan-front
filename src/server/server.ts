@@ -4,7 +4,7 @@ import { IQuiz, IQuizCreation } from "../interfaces/IQuiz";
 import { IModule, IModuleCreation } from "../interfaces/IModule";
 import { IWordCreation } from "../interfaces/IWord";
 import { IFlashcard, IFlashcardCreation } from "../interfaces/IFlashcard";
-import { ILessonCreation } from "../interfaces/ILesson";
+import { ILesson, ILessonCreation } from "../interfaces/ILesson";
 import { ICourseCreation } from "../interfaces/ICourse";
 import { ISubject, ISubjectCreation } from "../interfaces/ISubject";
 const URL = "https://localhost:7275/api";
@@ -162,6 +162,15 @@ export const deleteQuestionAPI = async (id: number) => {
     return {};
   }
 };
+export const editQuestionAPI = async (id: number, question: IQuestion) => {
+  try {
+    const res = await axios.put(`${URL}/question/${id}`, question);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit question:", error);
+    return {};
+  }
+};
 
 // Module API
 export const addModuleAPI = async (module: IModuleCreation) => {
@@ -287,6 +296,16 @@ export const addWordAPI = async (word: IWordCreation) => {
   }
 };
 
+export const addWordsAPI = async (words: Array<IWordCreation>) => {
+  try {
+    const res = await axios.post(`${URL}/word/multiple`, words);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add words:", error);
+    return {};
+  }
+};
+
 //Lessons API
 export const getLessonsAPI = async (id: number) => {
   try {
@@ -314,6 +333,15 @@ export const addLessonAPI = async (lesson: ILessonCreation) => {
     return res.data;
   } catch (error) {
     console.error("Failed to add lesson:", error);
+    return {};
+  }
+};
+export const editLessonAPI = async (id: number, lesson: ILesson) => {
+  try {
+    const res = await axios.put(`${URL}/lesson/${id}`, lesson);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit lesson:", error);
     return {};
   }
 };

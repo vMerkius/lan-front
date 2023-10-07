@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import { deleteLessonAPI, getLessonsAPI } from "../../../../../server/server";
 import AddLesson from "./AddLesson/AddLesson";
 import Subjects from "./Subjects/Subjects";
+import EditLesson from "./EditLesson";
 
 const Lessons = () => {
   const value = useParams();
   const IdModule = Number(value.idModule);
   const [lessons, setLessons] = useState<ILesson[]>([]);
+  const [editingLessonId, setEditingLessonId] = useState<number | null>(null);
   const [selectedLessonId, setSelectedLessonId] = useState<number | null>(null);
   const [showAddSection, setShowAddSection] = useState<boolean>(false);
 
@@ -29,6 +31,7 @@ const Lessons = () => {
       alert("Unable to delete flashcard");
     }
   };
+
   return (
     <div className="lesson-container">
       {showAddSection && (
@@ -51,13 +54,21 @@ const Lessons = () => {
           <div
             onClick={(e) => {
               e.stopPropagation();
+              setEditingLessonId(null);
               setSelectedLessonId((prevId) =>
                 prevId === lesson.id ? null : lesson.id
               );
             }}
             className="lesson-container__bar lesson-container__bar--main"
           >
-            <h3>{lesson.name}</h3>
+            <EditLesson
+              editingLessonId={editingLessonId}
+              lesson={lesson}
+              setEditingLessonId={setEditingLessonId}
+              idModule={IdModule}
+              lessons={lessons}
+              setLessons={setLessons}
+            />
             <div className="lesson-container__bar__buttons">
               <button
                 className="lesson-container__bar__buttons__button lesson-container__bar__buttons__button--delete"

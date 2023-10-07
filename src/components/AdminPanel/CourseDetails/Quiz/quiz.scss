@@ -5,6 +5,7 @@ $dark-blue: #0575c0;
 $border: #777;
 
 .quiz-container {
+  h2,
   h3,
   h4 {
     margin: 0;
@@ -86,4 +87,12 @@ $border: #777;
       }
     }
   }
+}
+
+.edit-quiz-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./add-words.scss";
-import { addWordAPI } from "../../../../../../../server/server";
+import { addWordAPI, addWordsAPI } from "../../../../../../../server/server";
 import { IWordCreation } from "../../../../../../../interfaces/IWord";
 
 type AddWordProps = {
@@ -40,14 +40,17 @@ const AddWords: React.FC<AddWordProps> = ({ setShowAddWordsSection, fId }) => {
   };
 
   const handleAdd = async () => {
+    let check = true;
     for (const word of formWords) {
       if (word.originalWord === "" || word.translatedWord === "") {
         alert("Please fill all the fields for every word");
-        return;
+        check = false;
       }
-      await addWordAPI(word);
     }
-    window.location.reload();
+    if (check) {
+      await addWordsAPI(formWords);
+      window.location.reload();
+    }
   };
   return (
     <div className="add-words-container" onClick={(e) => e.stopPropagation()}>

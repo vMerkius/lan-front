@@ -42,6 +42,7 @@ const CourseDetails = () => {
       const fetchedModules = await getCourseAllModulesAPI(id);
       setCourse(fetchedCourse);
       setQuizzes(fetchedQuizzes);
+      console.log(fetchedQuizzes);
       setModules(fetchedModules);
     };
     fetchCourses();
@@ -155,6 +156,8 @@ const CourseDetails = () => {
       <div
         className="course-details__bar course-details__bar--main"
         onClick={() => {
+          setEditingIdModule(null);
+          setEditingIdQuiz(null);
           setShowModules(!showModules);
         }}
       >
@@ -191,16 +194,19 @@ const CourseDetails = () => {
                 </h4>
               ) : (
                 <div
+                  className="input-container"
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
                 >
                   <input
+                    className="input-style"
                     type="text"
                     value={editingDataModule}
                     onChange={(e) => setEditingDataModule(e.target.value)}
                   />
                   <button
+                    className="input-save"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEditModule(module.id, module.description);
@@ -210,6 +216,7 @@ const CourseDetails = () => {
                     Save
                   </button>
                   <button
+                    className="input-cancel"
                     onClick={() => {
                       setEditingIdModule(null);
                     }}
@@ -254,6 +261,8 @@ const CourseDetails = () => {
       <div
         className="course-details__bar course-details__bar--main course-details__bar--quizzes"
         onClick={() => {
+          setEditingIdModule(null);
+          setEditingIdQuiz(null);
           setShowQuizzes(!showQuizzes);
         }}
       >
@@ -290,16 +299,19 @@ const CourseDetails = () => {
                 </h4>
               ) : (
                 <div
+                  className="input-container"
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
                 >
                   <input
+                    className="input-style"
                     type="text"
                     value={editingDataQuiz}
                     onChange={(e) => setEditingDataQuiz(e.target.value)}
                   />
                   <button
+                    className="input-save"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleEditQuiz(quiz.id, quiz.description);
@@ -309,6 +321,7 @@ const CourseDetails = () => {
                     Save
                   </button>
                   <button
+                    className="input-cancel"
                     onClick={() => {
                       setEditingIdQuiz(null);
                     }}
