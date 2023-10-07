@@ -63,15 +63,16 @@ const Quiz = () => {
       </div>
       <h2>{quiz.description}</h2>
       {questions.map((question) => (
-        <div
-          key={question.id}
-          onClick={() => {
-            setSelectedQuestionId((prevId) =>
-              prevId === question.id ? null : question.id
-            );
-          }}
-        >
-          <div className="quiz-container__bar quiz-container__bar--main">
+        <div key={question.id}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedQuestionId((prevId) =>
+                prevId === question.id ? null : question.id
+              );
+            }}
+            className="quiz-container__bar quiz-container__bar--main"
+          >
             <h4>{question.description}</h4>
             <div className="quiz-container__bar__buttons">
               <button

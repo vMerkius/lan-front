@@ -26,6 +26,9 @@ body #root {
   border-right: 1px solid #ddd;
 }
 .admin-panel-container {
+  border: 3px solid #ddd;
+  box-shadow: 0 0 15px #ddd;
+
   background-color: #fff;
   height: 100%;
   margin: 40px 30px 20px 30px;

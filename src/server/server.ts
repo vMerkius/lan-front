@@ -1,10 +1,12 @@
 import axios from "axios";
 import { IQuestion } from "../interfaces/IQuestion";
 import { IQuiz, IQuizCreation } from "../interfaces/IQuiz";
-import { IModuleCreation } from "../interfaces/IModule";
+import { IModule, IModuleCreation } from "../interfaces/IModule";
 import { IWordCreation } from "../interfaces/IWord";
-import { IFlashcardCreation } from "../interfaces/IFlashcard";
+import { IFlashcard, IFlashcardCreation } from "../interfaces/IFlashcard";
 import { ILessonCreation } from "../interfaces/ILesson";
+import { ICourseCreation } from "../interfaces/ICourse";
+import { ISubject, ISubjectCreation } from "../interfaces/ISubject";
 const URL = "https://localhost:7275/api";
 
 // User API
@@ -35,6 +37,26 @@ export const getCourseAPI = async (id: number) => {
     return res.data;
   } catch (error) {
     console.error("Failed to fetch course:", error);
+    return {};
+  }
+};
+
+export const addCourseAPI = async (course: ICourseCreation) => {
+  try {
+    const res = await axios.post(`${URL}/course`, course);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch course:", error);
+    return {};
+  }
+};
+
+export const deleteCourseAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/course/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete course:", error);
     return {};
   }
 };
@@ -100,6 +122,16 @@ export const deleteQuizAPI = async (id: number) => {
   }
 };
 
+export const editQuizAPI = async (id: number, quiz: IQuiz) => {
+  try {
+    const res = await axios.put(`${URL}/quiz/${id}`, quiz);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit quiz:", error);
+    return {};
+  }
+};
+
 // Question API
 export const getQuestionAnswersAPI = async (id: number) => {
   try {
@@ -152,6 +184,16 @@ export const deleteModuleAPI = async (id: number) => {
   }
 };
 
+export const editModuleAPI = async (id: number, module: IModule) => {
+  try {
+    const res = await axios.put(`${URL}/module/${id}`, module);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit module:", error);
+    return {};
+  }
+};
+
 // Answer API
 export const deleteAnswerAPI = async (id: number) => {
   try {
@@ -200,6 +242,16 @@ export const deleteFlashcardAPI = async (id: number) => {
     return res.data;
   } catch (error) {
     console.error("Failed to delete flashcard:", error);
+    return {};
+  }
+};
+
+export const editFlashcardAPI = async (id: number, flashcard: IFlashcard) => {
+  try {
+    const res = await axios.put(`${URL}/flashcard/${id}`, flashcard);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit flashcard:", error);
     return {};
   }
 };
@@ -282,6 +334,15 @@ export const deleteSubjectAPI = async (id: number) => {
     return res.data;
   } catch (error) {
     console.error("Failed to delete subject:", error);
+    return {};
+  }
+};
+export const addSubjectsAPI = async (subjects: Array<ISubjectCreation>) => {
+  try {
+    const res = await axios.post(`${URL}/subject/multiple`, subjects);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add subjects:", error);
     return {};
   }
 };

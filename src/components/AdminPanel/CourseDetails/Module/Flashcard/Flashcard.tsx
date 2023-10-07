@@ -1,9 +1,13 @@
 import { useParams } from "react-router";
 import "./flashcard.scss";
-import { IFlashcard } from "../../../../../interfaces/IFlashcard";
+import {
+  IFlashcard,
+  IFlashcardCreation,
+} from "../../../../../interfaces/IFlashcard";
 import { useEffect, useState } from "react";
 import {
   deleteFlashcardAPI,
+  editFlashcardAPI,
   getFlashcardsAPI,
 } from "../../../../../server/server";
 import AddFlashcard from "./AddFlashcard/AddFlashcard";
@@ -12,6 +16,10 @@ import Words from "./Words/Words";
 const Flashcards = () => {
   const value = useParams();
   const IdModule = Number(value.idModule);
+  const [editingFlashcardId, setEditingFlashcardId] = useState<number | null>(
+    null
+  );
+  const [editingData, setEditingData] = useState<string>("");
   const [flashcards, setFlashcards] = useState<IFlashcard[]>([]);
   const [selectedFlashcardId, setSelectedFlashcardId] = useState<number | null>(
     null
@@ -34,6 +42,25 @@ const Flashcards = () => {
       alert("Unable to delete flashcard");
     }
   };
+
+  const handleEdit = async (id: number) => {
+    const dataSend: IFlashcard = {
+      id: id,
+      name: editingData,
+      moduleId: IdModule,
+    };
+
+    try {
+      await editFlashcardAPI(id, dataSend);
+      const updatedFlashcards = flashcards.map((fc) =>
+        fc.id === id ? { ...fc, name: editingData } : fc
+      );
+      setFlashcards(updatedFlashcards);
+      setEditingFlashcardId(null);
+    } catch (error) {
+      alert("Unable to edit flashcard");
+    }
+  };
   return (
     <div className="flashcard-container">
       {showAddSection && (
@@ -43,7 +70,9 @@ const Flashcards = () => {
         />
       )}
       <div className="flashcard-container__header">
-        <h1>Flashcards</h1>
+        <div>
+          <h1>Flashcards</h1>
+        </div>
         <button
           className="flashcard-container__header__button add-btn--big"
           onClick={() => {
@@ -55,16 +84,54 @@ const Flashcards = () => {
       </div>
 
       {flashcards.map((flashcard) => (
-        <div
-          key={flashcard.id}
-          onClick={() => {
-            setSelectedFlashcardId((prevId) =>
-              prevId === flashcard.id ? null : flashcard.id
-            );
-          }}
-        >
-          <div className="flashcard-container__bar flashcard-container__bar--main">
-            <h3>{flashcard.name}</h3>
+        <div key={flashcard.id}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedFlashcardId((prevId) =>
+                prevId === flashcard.id ? null : flashcard.id
+              );
+            }}
+            className="flashcard-container__bar flashcard-container__bar--main"
+          >
+            {editingFlashcardId !== flashcard.id ? (
+              <h3
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditingFlashcardId(flashcard.id);
+                }}
+              >
+                {flashcard.name}
+              </h3>
+            ) : (
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <input
+                  type="text"
+                  value={editingData}
+                  onChange={(e) => setEditingData(e.target.value)}
+                />
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEdit(flashcard.id);
+                    setEditingFlashcardId(null);
+                  }}
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => {
+                    setEditingFlashcardId(null);
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            )}
             <div className="flashcard-container__bar__buttons">
               <button
                 className="flashcard-container__bar__buttons__button flashcard-container__bar__buttons__button--delete"

@@ -36,13 +36,13 @@ $border: #777;
     margin: 0px 10px;
 
     &:hover {
-      cursor: pointer;
       border: none;
       border: 3px solid $hover-border-color;
       background: $hover-background-color;
     }
 
     &--main {
+      cursor: pointer;
       :nth-child(even) {
         margin-right: 10px;
       }

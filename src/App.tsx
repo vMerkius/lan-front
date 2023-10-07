@@ -40,10 +40,7 @@ function App() {
               <Route path="/users" element={<Users />} />
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetails />} />
-              <Route
-                path="/courses/:id/module/:idModule"
-                element={<Module />}
-              />
+
               <Route path="/courses/:id/quiz/:idQuiz" element={<Quiz />} />
               <Route
                 path="/courses/:id/module/:idModule/flashcards"

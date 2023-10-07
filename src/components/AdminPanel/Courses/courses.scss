@@ -1,13 +1,32 @@
+$light-red: #ee6767;
+$dark-red: #e74949;
+
 .courses-container {
   display: flex;
+  flex-wrap: wrap;
 
   &__tile {
+    position: relative;
     flex: 1;
     margin: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+
+    &__delete {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: #fff;
+      padding: 2px 5px;
+      border: 1px solid #777;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $light-red;
+      }
+    }
 
     &:hover {
       border: 2px solid #e2630e;

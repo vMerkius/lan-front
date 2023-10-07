@@ -4,4 +4,4 @@ export interface ISubject {
   desription: string;
   lessonId: number;
 }
-export type ILessonCreation = Omit<ISubject, "id">;
+export type ISubjectCreation = Omit<ISubject, "id">;

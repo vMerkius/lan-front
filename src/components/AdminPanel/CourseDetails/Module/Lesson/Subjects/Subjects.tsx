@@ -7,6 +7,7 @@ import {
 } from "../../../../../../server/server";
 import "./subjects.scss";
 import { ISubject } from "../../../../../../interfaces/ISubject";
+import AddSubjects from "./AddSubjects/AddSubjects";
 
 const Subjects = ({ id }: any) => {
   const [subjects, setSubjects] = useState<ISubject[]>([]);
@@ -33,9 +34,12 @@ const Subjects = ({ id }: any) => {
 
   return (
     <div>
-      {/* {showAddSubjectsSection && (
-        <AddSubjects setShowAddWordsSection={setShowAddWordsSection} fId={id} />
-      )} */}
+      {showAddSubjectsSection && (
+        <AddSubjects
+          setShowAddSection={setShowAddSubjectsSection}
+          idLesson={id}
+        />
+      )}
       {subjects.map((subject) => (
         <div className="subject-container" key={subject.id}>
           <div className="subject-container__main">

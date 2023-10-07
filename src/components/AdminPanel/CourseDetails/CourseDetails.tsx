@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   deleteModuleAPI,
   deleteQuizAPI,
+  editModuleAPI,
+  editQuizAPI,
   getCourseAPI,
   getCourseAllModulesAPI,
   getCourseAllQuizzesAPI,
@@ -17,6 +19,10 @@ const CourseDetails = () => {
   const navigate = useNavigate();
   const value = useParams();
   const id = Number(value.id);
+  const [editingDataModule, setEditingDataModule] = useState<string>("");
+  const [editingIdModule, setEditingIdModule] = useState<number | null>(null);
+  const [editingDataQuiz, setEditingDataQuiz] = useState<string>("");
+  const [editingIdQuiz, setEditingIdQuiz] = useState<number | null>(null);
   const [showAddSection, setShowAddSection] = useState<boolean>(false);
   const [addModule, setAddModule] = useState<boolean>();
   const [showModules, setShowModules] = useState<boolean>(false);
@@ -40,9 +46,7 @@ const CourseDetails = () => {
     };
     fetchCourses();
   }, []);
-  const handleClickModules = (idModule: number) => {
-    navigate(`/courses/${id}/module/${idModule}`);
-  };
+
   const handleClickQuiz = (idQuiz: number) => {
     navigate(`/courses/${id}/quiz/${idQuiz}`);
   };
@@ -70,6 +74,47 @@ const CourseDetails = () => {
       setModules(modules.filter((module) => module.id !== id));
     } catch (error) {
       alert("Unable to delete module");
+    }
+  };
+
+  const handleEditModule = async (idChosen: number, desc: string) => {
+    console.log(idChosen, desc);
+    const dataSend: IModule = {
+      id: idChosen,
+      name: editingDataModule,
+      description: desc,
+      courseId: id,
+    };
+
+    try {
+      await editModuleAPI(idChosen, dataSend);
+      const updatedModules = modules.map((m) =>
+        m.id === idChosen ? { ...m, name: editingDataModule } : m
+      );
+      setModules(updatedModules);
+      setEditingIdModule(null);
+    } catch (error) {
+      alert("Unable to edit module");
+    }
+  };
+  const handleEditQuiz = async (idChosen: number, desc: string) => {
+    console.log(idChosen, desc);
+    const dataSend: IQuiz = {
+      id: idChosen,
+      name: editingDataQuiz,
+      description: desc,
+      courseId: id,
+    };
+
+    try {
+      await editQuizAPI(idChosen, dataSend);
+      const updatedQuizzes = quizzes.map((q) =>
+        q.id === idChosen ? { ...q, name: editingDataQuiz } : q
+      );
+      setQuizzes(updatedQuizzes);
+      setEditingIdQuiz(null);
+    } catch (error) {
+      alert("Unable to edit quiz");
     }
   };
 
@@ -120,12 +165,59 @@ const CourseDetails = () => {
         modules.map((module) => (
           <div
             key={module.id}
-            onClick={() => {
-              handleClickModules(module.id);
+            onClick={(e) => {
+              e.stopPropagation();
             }}
           >
-            <div className="course-details__bar course-details__bar--details">
-              <h4>{module.name}</h4>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setEditingIdModule((prevId) =>
+                  prevId === module.id ? null : module.id
+                );
+              }}
+              className="course-details__bar course-details__bar--details"
+            >
+              {/* <h4>{module.name}</h4> */}
+              {editingIdModule !== module.id ? (
+                <h4
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditingIdModule(module.id);
+                    setEditingDataModule(module.name);
+                  }}
+                >
+                  {module.name}
+                </h4>
+              ) : (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <input
+                    type="text"
+                    value={editingDataModule}
+                    onChange={(e) => setEditingDataModule(e.target.value)}
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEditModule(module.id, module.description);
+                      setEditingIdModule(null);
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setEditingIdModule(null);
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
+              )}
               <div className="course-details__module-buttons">
                 <button
                   onClick={(e) => {
@@ -154,9 +246,6 @@ const CourseDetails = () => {
                 >
                   -
                 </button>
-                <button className="course-details__quiz-buttons__button">
-                  more
-                </button>
               </div>
             </div>
           </div>
@@ -175,13 +264,68 @@ const CourseDetails = () => {
         quizzes.map((quiz) => (
           <div
             key={quiz.id}
-            onClick={() => {
-              handleClickQuiz(quiz.id);
+            onClick={(e) => {
+              e.stopPropagation();
             }}
           >
-            <div className="course-details__bar course-details__bar--details">
-              <h4>{quiz.name}</h4>
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setEditingIdQuiz((prevId) =>
+                  prevId === quiz.id ? null : quiz.id
+                );
+              }}
+              className="course-details__bar course-details__bar--details"
+            >
+              {/* <h4>{quiz.name}</h4> */}
+              {editingIdQuiz !== quiz.id ? (
+                <h4
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditingIdQuiz(quiz.id);
+                    setEditingDataQuiz(quiz.name);
+                  }}
+                >
+                  {quiz.name}
+                </h4>
+              ) : (
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <input
+                    type="text"
+                    value={editingDataQuiz}
+                    onChange={(e) => setEditingDataQuiz(e.target.value)}
+                  />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEditQuiz(quiz.id, quiz.description);
+                      setEditingIdQuiz(null);
+                    }}
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setEditingIdQuiz(null);
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
+              )}
               <div className="course-details__quiz-buttons">
+                <button
+                  className="course-details__quiz-buttons__button"
+                  onClick={() => {
+                    handleClickQuiz(quiz.id);
+                  }}
+                >
+                  more
+                </button>
                 <button
                   className="course-details__quiz-buttons__button course-details__quiz-buttons__button--delete"
                   onClick={(e) => {
@@ -190,14 +334,6 @@ const CourseDetails = () => {
                   }}
                 >
                   -
-                </button>
-                <button
-                  className="course-details__quiz-buttons__button"
-                  onClick={() => {
-                    handleClickQuiz(quiz.id);
-                  }}
-                >
-                  more
                 </button>
               </div>
             </div>

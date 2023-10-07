@@ -47,15 +47,16 @@ const Lessons = () => {
       </div>
 
       {lessons.map((lesson) => (
-        <div
-          key={lesson.id}
-          onClick={() => {
-            setSelectedLessonId((prevId) =>
-              prevId === lesson.id ? null : lesson.id
-            );
-          }}
-        >
-          <div className="lesson-container__bar lesson-container__bar--main">
+        <div key={lesson.id}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedLessonId((prevId) =>
+                prevId === lesson.id ? null : lesson.id
+              );
+            }}
+            className="lesson-container__bar lesson-container__bar--main"
+          >
             <h3>{lesson.name}</h3>
             <div className="lesson-container__bar__buttons">
               <button
