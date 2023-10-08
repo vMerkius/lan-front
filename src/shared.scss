@@ -70,6 +70,40 @@ a {
     background-color: $light-red;
   }
 }
+.switch-btn {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  background-color: $hover-border-color;
+  border-radius: 15px;
+  transition: background-color 0.3s;
+  border: 1px solid #000;
+  &--active {
+    background-color: $light-green;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &__slider {
+    position: absolute;
+    top: 50%;
+    left: 2px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    background-color: $dark-blue;
+    border-radius: 50%;
+    transition: left 0.4s;
+  }
+}
+
+.switch-btn--active .switch-btn__slider {
+  background-color: $dark-green;
+  left: calc(100% - 20px);
+}
 
 .add-btn {
   width: 50px;
@@ -116,5 +150,19 @@ a {
     cursor: pointer;
     color: #fff;
     background-color: $light-red;
+  }
+}
+
+.image-tooltip {
+  position: absolute;
+  z-index: 1;
+  border: 1px solid $border;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+
+  &__image {
+    max-width: 200px;
+    max-height: 200px;
   }
 }

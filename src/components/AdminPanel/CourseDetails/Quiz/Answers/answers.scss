@@ -1,0 +1,40 @@
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+
+  &__flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+
+      &--correct {
+        box-shadow: 0 0 20px 5px #13e065;
+        border-radius: 10px;
+        padding: 4px 7px;
+      }
+
+      &__delete-btn {
+        background-color: #fff;
+        padding: 1px 7px;
+        border: 1px solid #777;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #ee6767;
+          color: #fff;
+        }
+      }
+    }
+    button {
+      margin-left: 20px;
+    }
+  }
+}

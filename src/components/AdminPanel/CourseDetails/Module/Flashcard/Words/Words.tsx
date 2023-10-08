@@ -7,7 +7,12 @@ import {
 import "./words.scss";
 import AddWords from "./AddWords/AddWords";
 
-const Words = ({ id }: any) => {
+type WordsProps = {
+  id: number;
+};
+
+const Words: React.FC<WordsProps> = ({ id }) => {
+  const [hoveredImageUrl, setHoveredImageUrl] = useState<string | null>(null);
   const [words, setWords] = useState<IWord[]>([]);
   const [showAddWordsSection, setShowAddWordsSection] =
     useState<boolean>(false);
@@ -29,6 +34,14 @@ const Words = ({ id }: any) => {
     }
   };
 
+  const shorterWord = (word: string, quantity: number) => {
+    if (word.length > quantity) {
+      return word.slice(0, quantity) + "...";
+    } else {
+      return word;
+    }
+  };
+
   return (
     <div>
       {showAddWordsSection && (
@@ -39,7 +52,26 @@ const Words = ({ id }: any) => {
           <div className="word-container__main">
             <h3>{word.originalWord}</h3>
             <h3>-</h3>
-            <h3>{word.translatedWord}</h3>
+            {word.translatedWord === "" ? (
+              <h3
+                onMouseEnter={() => setHoveredImageUrl(word.imageUrl)}
+                onMouseLeave={() => setHoveredImageUrl(null)}
+              >
+                {shorterWord(word.imageUrl, 20)}
+                {hoveredImageUrl === word.imageUrl && (
+                  <div className="image-tooltip">
+                    <img
+                      className="image-tooltip__image"
+                      src={word.imageUrl}
+                      alt="Preview"
+                      width="200"
+                    />
+                  </div>
+                )}
+              </h3>
+            ) : (
+              <h3>{word.translatedWord}</h3>
+            )}
           </div>
 
           <button

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./add-words.scss";
-import { addWordAPI, addWordsAPI } from "../../../../../../../server/server";
-import { IWordCreation } from "../../../../../../../interfaces/IWord";
+import { addWordsAPI } from "../../../../../../../server/server";
+import WordTranslationOrImage from "./WordTranslationOrImage";
 
 type AddWordProps = {
   setShowAddWordsSection: (show: boolean) => void;
@@ -9,10 +9,12 @@ type AddWordProps = {
 };
 
 const AddWords: React.FC<AddWordProps> = ({ setShowAddWordsSection, fId }) => {
+  const [switchMode, setSwitchMode] = useState(false);
   const [formWords, setFormWords] = useState([
     {
       originalWord: "",
       translatedWord: "",
+      imageUrl: "",
       flashcardId: fId,
     },
   ]);
@@ -22,6 +24,7 @@ const AddWords: React.FC<AddWordProps> = ({ setShowAddWordsSection, fId }) => {
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
+    console.log(name, value);
     const list: any = [...formWords];
     list[index][name] = value;
     setFormWords(list);
@@ -29,7 +32,7 @@ const AddWords: React.FC<AddWordProps> = ({ setShowAddWordsSection, fId }) => {
   const handleAddClick = () => {
     setFormWords([
       ...formWords,
-      { originalWord: "", translatedWord: "", flashcardId: fId },
+      { originalWord: "", translatedWord: "", imageUrl: "", flashcardId: fId },
     ]);
   };
 
@@ -42,7 +45,7 @@ const AddWords: React.FC<AddWordProps> = ({ setShowAddWordsSection, fId }) => {
   const handleAdd = async () => {
     let check = true;
     for (const word of formWords) {
-      if (word.originalWord === "" || word.translatedWord === "") {
+      if (word.originalWord === "") {
         alert("Please fill all the fields for every word");
         check = false;
       }
@@ -53,69 +56,19 @@ const AddWords: React.FC<AddWordProps> = ({ setShowAddWordsSection, fId }) => {
     }
   };
   return (
-    <div className="add-words-container" onClick={(e) => e.stopPropagation()}>
-      <div className="add-words-container__add">
-        <button
-          className="cancel-btn"
-          onClick={() => {
-            setShowAddWordsSection(false);
-          }}
-        >
-          X
-        </button>
-        <h2 className="add-words-container__add__heading">Words</h2>
-
-        <form className="add-words-container__add__form">
-          {formWords.map((word, index) => (
-            <div
-              className="add-words-container__add__form__container"
-              key={index}
-            >
-              <label className="add-words-container__add__form__row">
-                <input
-                  name="originalWord"
-                  placeholder="Original Word"
-                  value={word.originalWord}
-                  onChange={(e) => handleChange(index, e)}
-                />
-              </label>
-              <label className="add-words-container__add__form__row">
-                <input
-                  name="translatedWord"
-                  placeholder="Translated Word"
-                  value={word.translatedWord}
-                  onChange={(e) => handleChange(index, e)}
-                />
-              </label>
-
-              <button
-                className="remove-btn"
-                type="button"
-                onClick={() => handleRemoveClick(index)}
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-
-          <button
-            className=" add-words-container__add__form__row__add-answer"
-            type="button"
-            onClick={handleAddClick}
-          >
-            Add More
-          </button>
-          <button
-            className="add-btn add-words-container__add__form__button"
-            onClick={(e) => {
-              e.preventDefault();
-              handleAdd();
-            }}
-          >
-            Add
-          </button>
-        </form>
-      </div>
+    <div>
+      <WordTranslationOrImage
+        fId={fId}
+        switchMode={switchMode}
+        setSwitchMode={setSwitchMode}
+        setShowAddWordsSection={setShowAddWordsSection}
+        formWords={formWords}
+        setFormWords={setFormWords}
+        handleChange={handleChange}
+        handleAddClick={handleAddClick}
+        handleRemoveClick={handleRemoveClick}
+        handleAdd={handleAdd}
+      />
     </div>
   );
 };

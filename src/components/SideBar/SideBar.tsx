@@ -60,7 +60,6 @@ const SideBar = () => {
             <h2 onClick={() => handleClick("Settings")}>Settings</h2>
           </li>
         </ul>
-        <h3 style={{ color: "green" }}>{choice}</h3>
       </nav>
     </aside>
   );

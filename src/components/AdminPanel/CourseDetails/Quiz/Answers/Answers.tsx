@@ -4,11 +4,18 @@ import {
   deleteAnswerAPI,
   getQuestionAnswersAPI,
 } from "../../../../../server/server";
+import "./answers.scss";
 
-const Answers = ({ id }: any) => {
+type AnswersProps = {
+  id: number;
+  correct: number;
+};
+
+const Answers: React.FC<AnswersProps> = ({ id, correct }) => {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
 
   useEffect(() => {
+    console.log(correct);
     const fetchAnswers = async () => {
       const fetchedAnswers = await getQuestionAnswersAPI(id);
       setAnswers(fetchedAnswers);
@@ -26,18 +33,29 @@ const Answers = ({ id }: any) => {
   };
 
   return (
-    <div>
-      {answers.map((answer) => (
-        <div key={answer.id}>
-          <h3>{answer.name}</h3>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDelete(answer.id);
-            }}
-          >
-            -
-          </button>
+    <div className="answers-container">
+      {answers.map((answer, index) => (
+        <div className="answers-container__flex" key={answer.id}>
+          <div className="answers-container__flex__main">
+            <h4
+              className={
+                correct === index + 1
+                  ? "answers-container__flex__main--correct"
+                  : ""
+              }
+            >
+              {answer.name}
+            </h4>
+            <button
+              className="answers-container__flex__main__delete-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(answer.id);
+              }}
+            >
+              -
+            </button>
+          </div>
         </div>
       ))}
     </div>

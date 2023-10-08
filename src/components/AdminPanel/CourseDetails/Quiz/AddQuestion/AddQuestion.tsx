@@ -12,7 +12,7 @@ const AddQuestion: React.FC<AddQuestionProps> = ({
   idQuiz,
 }) => {
   const [answerAmount, setAnswerAmount] = useState(2);
-  const [rightAnswer, setRightAnswer] = useState(1);
+  const [rightAnswer, setRightAnswer] = useState(0);
   const [formDataQuestion, setFormDataQuestion] = useState({
     description: "",
     correctAnswer: "",
@@ -50,13 +50,13 @@ const AddQuestion: React.FC<AddQuestionProps> = ({
   const handleAdd = async () => {
     const questionSend = {
       ...formDataQuestion,
-      correctAnswer: "rightAnswer",
+      correctAnswer: rightAnswer,
       quizId: idQuiz,
     };
 
     if (
       questionSend.description === "" ||
-      questionSend.correctAnswer === "" ||
+      questionSend.correctAnswer === 0 ||
       formDataAnswers[0].name === "" ||
       formDataAnswers[1].name === ""
     ) {
@@ -71,7 +71,7 @@ const AddQuestion: React.FC<AddQuestionProps> = ({
           questionId: quetionAddedId,
         });
       }
-      console.log(answerSend);
+      setRightAnswer(0);
       addAnswersAPI(answerSend);
       window.location.reload();
     }

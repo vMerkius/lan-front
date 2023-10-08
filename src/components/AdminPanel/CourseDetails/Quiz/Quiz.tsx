@@ -81,7 +81,6 @@ const Quiz = () => {
             }}
             className="quiz-container__bar quiz-container__bar--main"
           >
-            {/* <h4>{question.description}</h4> */}
             <EditQuestion
               editingQuestionId={editingQuestionId}
               question={question}
@@ -106,7 +105,9 @@ const Quiz = () => {
               )}
             </div>
           </div>
-          {selectedQuestionId === question.id && <Answers id={question.id} />}
+          {selectedQuestionId === question.id && (
+            <Answers id={question.id} correct={question.correctAnswer} />
+          )}
         </div>
       ))}
     </div>
