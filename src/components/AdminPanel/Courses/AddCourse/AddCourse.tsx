@@ -1,10 +1,6 @@
 import { useState } from "react";
 import "./add-course.scss";
-import {
-  addCourseAPI,
-  addModuleAPI,
-  addQuizAPI,
-} from "../../../../server/server";
+import { addCourseAPI } from "../../../../server/server";
 
 type AddCourseProps = {
   setShowAddSection: (show: boolean) => void;

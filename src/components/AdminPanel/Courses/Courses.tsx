@@ -4,10 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { ICourse } from "../../../interfaces/ICourse";
 import { deleteCourseAPI, getCoursesAPI } from "../../../server/server";
 import AddCourse from "./AddCourse/AddCourse";
+import Confirmation from "../../shared/confirmation";
 
 const Courses = () => {
   const navigate = useNavigate();
 
+  const [courseId, setCourseId] = useState<number>(0);
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [reply, setReply] = useState<boolean>(false);
   const [courses, setCourses] = useState<ICourse[]>([]);
   const [showAddSection, setShowAddSection] = useState<boolean>(false);
   useEffect(() => {
@@ -17,15 +21,20 @@ const Courses = () => {
     };
     fetchCourses();
   }, []);
+  useEffect(() => {
+    handleDelete(courseId);
+  }, [reply]);
 
   const handleClick = (id: number) => {
     navigate(`/courses/${id}`);
   };
-  const handleDetete = async (id: number) => {
+  const handleDelete = async (id: number) => {
     try {
-      await deleteCourseAPI(id);
-      const newCourses = courses.filter((course) => course.id !== id);
-      setCourses(newCourses);
+      if (reply) {
+        await deleteCourseAPI(id);
+        const newCourses = courses.filter((course) => course.id !== id);
+        setCourses(newCourses);
+      }
     } catch {
       alert("Unable to delete course");
     }
@@ -33,6 +42,12 @@ const Courses = () => {
 
   return (
     <div>
+      {showConfirmation && (
+        <Confirmation
+          setShowConfirmation={setShowConfirmation}
+          setReply={setReply}
+        />
+      )}
       {showAddSection && <AddCourse setShowAddSection={setShowAddSection} />}
       <h1>Courses</h1>
       <div className="courses-container">
@@ -45,7 +60,8 @@ const Courses = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleDetete(course.id);
+                  setCourseId(course.id);
+                  setShowConfirmation(true);
                 }}
                 className="courses-container__tile__delete"
               >

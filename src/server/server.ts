@@ -20,6 +20,34 @@ export const getUsersAPI = async () => {
   }
 };
 
+export const getUserAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/user/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    return {};
+  }
+};
+export const deleteUserAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/user/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete user:", error);
+    return {};
+  }
+};
+export const getUserAgeAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/user/age/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch user's age:", error);
+    return {};
+  }
+};
+
 // Course API
 export const getCoursesAPI = async () => {
   try {
@@ -365,12 +393,12 @@ export const deleteSubjectAPI = async (id: number) => {
     return {};
   }
 };
-export const addSubjectsAPI = async (subjects: Array<ISubjectCreation>) => {
+export const addSubjectAPI = async (subject: ISubjectCreation) => {
   try {
-    const res = await axios.post(`${URL}/subject/multiple`, subjects);
+    const res = await axios.post(`${URL}/subject`, subject);
     return res.data;
   } catch (error) {
-    console.error("Failed to add subjects:", error);
+    console.error("Failed to add subject:", error);
     return {};
   }
 };

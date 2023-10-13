@@ -29,6 +29,7 @@
 
     &--active,
     &:hover {
+      cursor: pointer;
       background-color: #cbe6ef;
       border-left: 10px solid #8fcadd;
     }

@@ -1,9 +1,6 @@
 import { useState } from "react";
 import "./add-subjects.scss";
-import {
-  addLessonAPI,
-  addSubjectsAPI,
-} from "../../../../../../../server/server";
+import { addSubjectAPI } from "../../../../../../../server/server";
 
 type AddSubjectsProps = {
   setShowAddSection: (show: boolean) => void;
@@ -16,9 +13,12 @@ const AddSubjects: React.FC<AddSubjectsProps> = ({
   const [formData, setFormData] = useState({
     name: "",
     description: "",
+    imageUrl: "",
     lessonId: 0,
   });
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -34,7 +34,7 @@ const AddSubjects: React.FC<AddSubjectsProps> = ({
     if (dataSend.name === "" || dataSend.description === "") {
       alert("Fill all fields");
     } else {
-      addSubjectsAPI(dataSend);
+      addSubjectAPI(dataSend);
       window.location.reload();
     }
   };
@@ -63,11 +63,21 @@ const AddSubjects: React.FC<AddSubjectsProps> = ({
           </label>
           <label className="add-subjects-container__add__form__row">
             Description:
-            <input
+            <textarea
               className="input-style"
               type="text"
               name="description"
               value={formData.description}
+              onChange={handleChange}
+            />
+          </label>
+          <label className="add-subjects-container__add__form__row">
+            Image URL:
+            <input
+              className="input-style"
+              type="text"
+              name="imageUrl"
+              value={formData.imageUrl}
               onChange={handleChange}
             />
           </label>

@@ -99,7 +99,6 @@ const CourseDetails = () => {
     }
   };
   const handleEditQuiz = async (idChosen: number, desc: string) => {
-    console.log(idChosen, desc);
     const dataSend: IQuiz = {
       id: idChosen,
       name: editingDataQuiz,
@@ -181,7 +180,6 @@ const CourseDetails = () => {
               }}
               className="course-details__bar course-details__bar--details"
             >
-              {/* <h4>{module.name}</h4> */}
               {editingIdModule !== module.id ? (
                 <h4
                   onClick={(e) => {

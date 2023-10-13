@@ -1,7 +1,7 @@
 export interface ISubject {
   id: number;
   name: string;
-  desription: string;
+  description: string;
   imageUrl: string;
   lessonId: number;
 }

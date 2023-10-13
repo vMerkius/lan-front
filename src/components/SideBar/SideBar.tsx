@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./sidebar.scss";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const SideBar = () => {
+  const navigate = useNavigate();
+
   const { t, i18n } = useTranslation();
   const [choice, setChoice] = useState("");
 
@@ -16,48 +18,60 @@ const SideBar = () => {
       <nav className="sidebar-container__navigation">
         <ul className="navigation-list">
           <li
+            onClick={() => {
+              handleClick("Dashboard");
+              navigate("/");
+            }}
             className={`navigation-list__item ${
               choice === "Dashboard" ? "navigation-list__item--active" : ""
             }`}
           >
-            <Link to="/">
-              <h2 onClick={() => handleClick("Dashboard")}>
-                {t("sidebar.dashboard")}
-              </h2>
-            </Link>
+            <h2>{t("sidebar.dashboard")}</h2>
           </li>
+
           <li
-            className={`navigation-list__item ${
-              choice === "Stats" ? "navigation-list__item--active" : ""
-            }`}
-          >
-            <Link to="/stats">
-              <h2 onClick={() => handleClick("Stats")}>Stats</h2>
-            </Link>
-          </li>
-          <li
+            onClick={() => {
+              handleClick("Courses");
+              navigate("/courses");
+            }}
             className={`navigation-list__item ${
               choice === "Courses" ? "navigation-list__item--active" : ""
             }`}
           >
-            <Link to="/courses">
-              <h2 onClick={() => handleClick("Courses")}>Courses</h2>
-            </Link>
+            <h2>Courses</h2>
           </li>
           <li
+            onClick={() => {
+              handleClick("Users");
+              navigate("/users");
+            }}
             className={`navigation-list__item ${
               choice === "Users" ? "navigation-list__item--active" : ""
             }`}
           >
-            <Link to="/users">
-              <h2 onClick={() => handleClick("Users")}>Users</h2>
-            </Link>
+            <h2>Users</h2>
           </li>
-          <li>
-            <h2 onClick={() => handleClick("Reports")}>Reports</h2>
+          <li
+            onClick={() => {
+              handleClick("Reports");
+              navigate("/reports");
+            }}
+            className={`navigation-list__item ${
+              choice === "Reports" ? "navigation-list__item--active" : ""
+            }`}
+          >
+            <h2>Reports</h2>
           </li>
-          <li>
-            <h2 onClick={() => handleClick("Settings")}>Settings</h2>
+          <li
+            onClick={() => {
+              handleClick("Settings");
+              navigate("/settings");
+            }}
+            className={`navigation-list__item ${
+              choice === "Settings" ? "navigation-list__item--active" : ""
+            }`}
+          >
+            <h2>Settings</h2>
           </li>
         </ul>
       </nav>

@@ -44,19 +44,17 @@ const Subjects = ({ id }: any) => {
         <div className="subject-container" key={subject.id}>
           <div className="subject-container__main">
             <h3>{subject.name}</h3>
-            <h3>{subject.desription}</h3>
-            {/* !!!!!!!!!!!! */}
+            <button
+              className="subject-container__main__delete-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(subject.id);
+              }}
+            >
+              delete
+            </button>
           </div>
-
-          <button
-            className="subject-container__main__delete-btn"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDelete(subject.id);
-            }}
-          >
-            -
-          </button>
+          <h4>{subject.description}</h4>
         </div>
       ))}
       <div className="subject-add-bar">

@@ -12,7 +12,8 @@ type WordsProps = {
 };
 
 const Words: React.FC<WordsProps> = ({ id }) => {
-  const [hoveredImageUrl, setHoveredImageUrl] = useState<string | null>(null);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+  const [hoveredUrl, setHoveredUrl] = useState<string | null>(null);
   const [words, setWords] = useState<IWord[]>([]);
   const [showAddWordsSection, setShowAddWordsSection] =
     useState<boolean>(false);
@@ -53,22 +54,39 @@ const Words: React.FC<WordsProps> = ({ id }) => {
             <h3>{word.originalWord}</h3>
             <h3>-</h3>
             {word.translatedWord === "" ? (
-              <h3
-                onMouseEnter={() => setHoveredImageUrl(word.imageUrl)}
-                onMouseLeave={() => setHoveredImageUrl(null)}
-              >
-                {shorterWord(word.imageUrl, 20)}
-                {hoveredImageUrl === word.imageUrl && (
-                  <div className="image-tooltip">
-                    <img
-                      className="image-tooltip__image"
-                      src={word.imageUrl}
-                      alt="Preview"
-                      width="200"
-                    />
-                  </div>
+              <>
+                <h3
+                  onMouseEnter={() => setHoveredUrl(word.imageUrl)}
+                  onMouseLeave={() => setHoveredUrl(null)}
+                >
+                  {hoveredUrl === word.imageUrl
+                    ? word.imageUrl
+                    : shorterWord(word.imageUrl, 20)}
+
+                  {hoveredImage === word.imageUrl && (
+                    <div className="image-tooltip">
+                      <img
+                        className="image-tooltip__image"
+                        src={word.imageUrl}
+                        alt="Preview"
+                        width="200"
+                      />
+                    </div>
+                  )}
+                </h3>
+
+                {word.imageUrl !== "" ? (
+                  <img
+                    onMouseEnter={() => setHoveredImage(word.imageUrl)}
+                    onMouseLeave={() => setHoveredImage(null)}
+                    src={word.imageUrl}
+                    alt="Preview"
+                    width="50"
+                  />
+                ) : (
+                  ""
                 )}
-              </h3>
+              </>
             ) : (
               <h3>{word.translatedWord}</h3>
             )}

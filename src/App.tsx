@@ -15,6 +15,7 @@ import Quiz from "./components/AdminPanel/CourseDetails/Quiz/Quiz";
 import Flashcards from "./components/AdminPanel/CourseDetails/Module/Flashcard/Flashcard";
 import "./shared.scss";
 import Lessons from "./components/AdminPanel/CourseDetails/Module/Lesson/Lessons";
+import UserDetails from "./components/AdminPanel/Users/UserDetails/UserDetails";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -38,6 +39,8 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/stats" element={<Stats />} />
               <Route path="/users" element={<Users />} />
+              <Route path="/users/:id" element={<UserDetails />} />
+
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetails />} />
 
