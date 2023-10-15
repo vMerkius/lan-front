@@ -1,4 +1,24 @@
-.search-bar {
+.search-bar-container {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: center;
+
+  &__input {
+    position: relative;
+    &__text {
+      padding: 5px 10px;
+      border: 1px solid #777;
+      border-radius: 10px;
+      margin-left: 50px;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 4px;
+      right: 5px;
+      cursor: pointer;
+    }
+  }
 }
