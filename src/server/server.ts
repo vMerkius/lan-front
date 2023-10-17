@@ -7,6 +7,8 @@ import { IFlashcard, IFlashcardCreation } from "../interfaces/IFlashcard";
 import { ILesson, ILessonCreation } from "../interfaces/ILesson";
 import { ICourseCreation } from "../interfaces/ICourse";
 import { ISubject, ISubjectCreation } from "../interfaces/ISubject";
+import { IReplyCreation } from "../interfaces/IReply";
+import { IReport } from "../interfaces/IReport";
 const URL = "https://localhost:7275/api";
 
 // User API
@@ -409,6 +411,93 @@ export const addSubjectAPI = async (subject: ISubjectCreation) => {
     return res.data;
   } catch (error) {
     console.error("Failed to add subject:", error);
+    return {};
+  }
+};
+
+//Report API
+export const getReportAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/report/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch report:", error);
+    return [];
+  }
+};
+
+export const getReportsAPI = async () => {
+  try {
+    const res = await axios.get(`${URL}/report`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch reports:", error);
+    return [];
+  }
+};
+export const deleteReportAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/report/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete report:", error);
+    return {};
+  }
+};
+export const editReportAPI = async (id: number, report: IReport) => {
+  try {
+    const res = await axios.put(`${URL}/report/${id}`, report);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit report:", error);
+    return {};
+  }
+};
+export const getReportReplyAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/report/reply/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch reply:", error);
+    return [];
+  }
+};
+
+//Reply API
+export const getReplyAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/reply/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch reply:", error);
+    return [];
+  }
+};
+
+export const getReplysAPI = async () => {
+  try {
+    const res = await axios.get(`${URL}/reply`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch replies:", error);
+    return [];
+  }
+};
+export const deleteReplyAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/reply/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete reply:", error);
+    return {};
+  }
+};
+export const addReplyAPI = async (reply: IReplyCreation) => {
+  try {
+    const res = await axios.post(`${URL}/reply`, reply);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add reply:", error);
     return {};
   }
 };

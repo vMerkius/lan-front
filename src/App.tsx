@@ -18,6 +18,8 @@ import Lessons from "./components/AdminPanel/CourseDetails/Module/Lesson/Lessons
 import UserDetails from "./components/AdminPanel/Users/UserDetails/UserDetails";
 import SearchBarContext from "./components/SearchBar/SearchBarContext";
 import { useState } from "react";
+import Reports from "./components/AdminPanel/Reports/Reports";
+import ReportDetails from "./components/AdminPanel/Reports/ReportDetails/ReportsDetails";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -44,6 +46,9 @@ function App() {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/stats" element={<Stats />} />
                 <Route path="/users" element={<Users />} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/reports/:id" element={<ReportDetails />} />
+
                 <Route path="/users/:id" element={<UserDetails />} />
 
                 <Route path="/courses" element={<Courses />} />
