@@ -47,6 +47,13 @@
       }
       &__message {
         margin-bottom: 13px;
+        span {
+          max-width: 100%;
+          white-space: normal;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          height: 100%;
+        }
       }
     }
   }
@@ -69,4 +76,10 @@
   width: 50%;
   margin: 0 auto;
   padding: 70px 0px;
+  span {
+    max-width: 100%;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
 }

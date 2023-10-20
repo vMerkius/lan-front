@@ -9,7 +9,7 @@ import PagingPanel from "./PagingPanel";
 import UserTable from "./UserTable";
 
 const Users = () => {
-  const searchValue = useContext(SearchBarContext);
+  const { searchValue, setSearchValue } = useContext(SearchBarContext);
 
   const [hovered, setHovered] = useState<number | null>(null);
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
@@ -28,24 +28,27 @@ const Users = () => {
   };
 
   useEffect(() => {
+    setSearchValue("");
     const fetchUsers = async () => {
       const fetchedUsers = await getUsersAPI();
       setUsers(fetchedUsers);
     };
     fetchUsers();
-  }, [searchValue]);
+  }, []);
 
   useEffect(() => {
     handleDeleteChosen();
   }, [reply]);
-
   useEffect(() => {
-    const usersToDisplay = users.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
+    const filteredUsers = users.filter((user) =>
+      user.name.toLowerCase().includes(searchValue.toLowerCase())
     );
-    setDisplayedUsers(usersToDisplay);
-  }, [currentPage, users]);
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    setDisplayedUsers(filteredUsers.slice(startIndex, endIndex));
+  }, [searchValue, currentPage, users]);
 
   const handleDeleteChosen = () => {
     deleteUsers.forEach(async (id) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getUserAPI, getUserCoursesAPI } from "../../../../server/server";
 import { IUser } from "../../../../interfaces/IUser";
 import UserIcon from "../../../../assets/icons/user-icon.svg";
@@ -8,6 +8,7 @@ import "./user-details.scss";
 import { ICourse } from "../../../../interfaces/ICourse";
 
 const UserDetails = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState<IUser>({
     id: 0,
     name: "",
@@ -91,7 +92,12 @@ const UserDetails = () => {
       </div>
       <h1>Attended courses:</h1>
       {userCourses.map((course) => (
-        <h2>
+        <h2
+          className="user-details-container__navi"
+          onClick={() => {
+            navigate(`/courses/${course.id}`);
+          }}
+        >
           {course.language}
           {course.level}
         </h2>

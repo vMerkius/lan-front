@@ -55,86 +55,93 @@ const UserTable: React.FC<UserTableProps> = ({
     return age;
   };
   return (
-    <table className="users-container__table">
-      <thead className="users-container__table__header">
-        <tr>
-          <th></th>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th>Age</th>
-          <th>Gender</th>
-          <th>Country</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody className="users-container__table__body">
-        {displayedUsers.map((user) => (
-          <tr
-            className="users-container__table__body__row"
-            key={user.id}
-            onMouseEnter={() => setHovered(user.id)}
-            onMouseLeave={() => setHovered(null)}
-          >
-            <td>
-              {" "}
-              <input
-                type="checkbox"
-                onChange={() => {
-                  setDeleteUsers([...deleteUsers, user.id]);
-                }}
-              />
-            </td>
-            <td>{user.id}</td>
-            {hovered !== user.id ? (
-              <>
-                <td>{shorterWord(user.name, 20)}</td>
-                <td>{shorterWord(user.email, 20)}</td>
-              </>
-            ) : (
-              <>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-              </>
-            )}
-
-            <td
-              className="users-container__table__body__row__password"
-              onClick={() => {
-                showPassword === user.id
-                  ? setShowPassword(null)
-                  : setShowPassword(user.id);
-                console.log(showPassword);
-              }}
+    <>
+      <table className="users-container__table">
+        <thead className="users-container__table__header">
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Country</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody className="users-container__table__body">
+          {displayedUsers.map((user) => (
+            <tr
+              className="users-container__table__body__row"
+              key={user.id}
+              onMouseEnter={() => setHovered(user.id)}
+              onMouseLeave={() => setHovered(null)}
             >
-              {showPassword !== user.id ? (
+              <td>
+                {" "}
+                <input
+                  type="checkbox"
+                  onChange={() => {
+                    setDeleteUsers([...deleteUsers, user.id]);
+                  }}
+                />
+              </td>
+              <td>{user.id}</td>
+              {hovered !== user.id ? (
                 <>
-                  {hidePassword(user.password, user.id)}
-                  <img src={ShowIcon} width="22px" alt="Show Password Icon" />
+                  <td>{shorterWord(user.name, 20)}</td>
+                  <td>{shorterWord(user.email, 20)}</td>
                 </>
               ) : (
                 <>
-                  {user.password}
-
-                  <img src={HideIcon} width="22px" alt="Hide Password Icon" />
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
                 </>
               )}
-            </td>
-            <td>{getAge(user.dateOfBirth)}</td>
-            <td>{user.gender}</td>
 
-            <td>{user.country}</td>
-            <td
-              onClick={() => handleClickMore(user.id)}
-              className="users-container__table__body__row__more"
-            >
-              <img src={MoreIcon} alt="more icon" width="22px" title="more" />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+              <td
+                className="users-container__table__body__row__password"
+                onClick={() => {
+                  showPassword === user.id
+                    ? setShowPassword(null)
+                    : setShowPassword(user.id);
+                  console.log(showPassword);
+                }}
+              >
+                {showPassword !== user.id ? (
+                  <>
+                    {hidePassword(user.password, user.id)}
+                    <img src={ShowIcon} width="22px" alt="Show Password Icon" />
+                  </>
+                ) : (
+                  <>
+                    {user.password}
+
+                    <img src={HideIcon} width="22px" alt="Hide Password Icon" />
+                  </>
+                )}
+              </td>
+              <td>{getAge(user.dateOfBirth)}</td>
+              <td>{user.gender}</td>
+
+              <td>{user.country}</td>
+              <td
+                onClick={() => handleClickMore(user.id)}
+                className="users-container__table__body__row__more"
+              >
+                <img src={MoreIcon} alt="more icon" width="22px" title="more" />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {displayedUsers.length === 0 && (
+        <>
+          <h2>No Users Found</h2>
+        </>
+      )}
+    </>
   );
 };
 
