@@ -91,17 +91,21 @@ const UserDetails = () => {
         </div>
       </div>
       <h1>Attended courses:</h1>
-      {userCourses.map((course) => (
-        <h2
-          className="user-details-container__navi"
-          onClick={() => {
-            navigate(`/courses/${course.id}`);
-          }}
-        >
-          {course.language}
-          {course.level}
-        </h2>
-      ))}
+      <ul className="user-details-container__courses">
+        {userCourses.map((course) => (
+          <li
+            title="Course details"
+            onClick={() => {
+              navigate(`/courses/${course.id}`);
+            }}
+            className="user-details-container__courses__item"
+          >
+            <h2 className="user-details-container__courses__item__navi">
+              {course.language}-{course.level}
+            </h2>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

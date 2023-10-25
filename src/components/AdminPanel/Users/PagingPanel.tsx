@@ -40,6 +40,16 @@ const PagingPanel: React.FC<PagingPanelProps> = ({
     return pageNumbers;
   };
 
+  const handleMinClick = () => {
+    if (currentPage > 1) {
+      onPageChange(1);
+    }
+  };
+  const handleMaxClick = () => {
+    if (currentPage < totalPages) {
+      onPageChange(totalPages);
+    }
+  };
   const handlePrevClick = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
@@ -54,6 +64,18 @@ const PagingPanel: React.FC<PagingPanelProps> = ({
 
   return (
     <div className="paging-panel-container">
+      <button
+        className="paging-panel-container__button"
+        onClick={handleMinClick}
+        disabled={currentPage === 1}
+      >
+        <img
+          src={ArrowLeftIcon}
+          alt="arrow left icon"
+          width="30px"
+          height="30px"
+        />
+      </button>
       <button
         className="paging-panel-container__button"
         onClick={handlePrevClick}
@@ -72,6 +94,13 @@ const PagingPanel: React.FC<PagingPanelProps> = ({
       <button
         className="paging-panel-container__button"
         onClick={handleNextClick}
+        disabled={currentPage === totalPages}
+      >
+        <img src={ArrowRightIcon} alt="arrow right icon" width="30px" />
+      </button>
+      <button
+        className="paging-panel-container__button"
+        onClick={handleMaxClick}
         disabled={currentPage === totalPages}
       >
         <img src={ArrowRightIcon} alt="arrow right icon" width="30px" />

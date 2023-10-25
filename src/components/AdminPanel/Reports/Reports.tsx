@@ -22,7 +22,16 @@ const Reports = () => {
   useEffect(() => {
     setSearchValue("");
     const fetchReports = async () => {
-      const fetchedReports = await getReportsAPI();
+      let fetchedReports = await getReportsAPI();
+      fetchedReports = fetchedReports.sort((a: IReport, b: IReport) => {
+        if (a.isReviewed && !b.isReviewed) {
+          return 1;
+        } else if (!a.isReviewed && b.isReviewed) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
       setReports(fetchedReports);
     };
     fetchReports();

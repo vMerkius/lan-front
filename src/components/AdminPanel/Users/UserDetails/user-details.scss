@@ -40,10 +40,23 @@
     }
   }
 
-  &__navi {
-    &:hover {
-      text-decoration: underline;
-      cursor: pointer;
+  &__courses {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+
+    &__item {
+      border: 1px solid #777;
+      padding: 10px;
+      &:hover {
+        cursor: pointer;
+        background-color: #cbe6ef;
+      }
+      &__navi {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
