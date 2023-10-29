@@ -69,24 +69,14 @@ const PagingPanel: React.FC<PagingPanelProps> = ({
         onClick={handleMinClick}
         disabled={currentPage === 1}
       >
-        <img
-          src={ArrowLeftIcon}
-          alt="arrow left icon"
-          width="30px"
-          height="30px"
-        />
+        <img src={ArrowLeftIcon} alt="arrow left icon" width="30px" />
       </button>
       <button
         className="paging-panel-container__button"
         onClick={handlePrevClick}
         disabled={currentPage === 1}
       >
-        <img
-          src={ArrowLeftIcon}
-          alt="arrow left icon"
-          width="30px"
-          height="30px"
-        />
+        <img src={ArrowLeftIcon} alt="arrow left icon" width="30px" />
       </button>
       <ul className="paging-panel-container__numbers-section">
         {renderPageNumbers()}

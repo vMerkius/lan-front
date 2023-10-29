@@ -1,0 +1,101 @@
+.dashboard {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  &__age-section {
+    margin: 7px;
+    box-shadow: 0 0 5px #777;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &:hover {
+      box-shadow: 0 0 5px #0575c0;
+      margin: 4px;
+    }
+    &__avg-age {
+      margin: 0;
+    }
+    &__age-pie {
+      overflow: hidden;
+      max-width: 300px;
+      max-height: 300px;
+      flex: 1;
+    }
+    &__age-bar {
+      overflow: hidden;
+      max-width: 350px;
+      max-height: 350px;
+      flex: 1;
+    }
+  }
+  &__info-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    &__report {
+      margin: 7px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 3;
+      box-shadow: 0 0 5px #777;
+      &:hover {
+        box-shadow: 0 0 5px #0575c0;
+        margin: 4px;
+      }
+      &__mini-window {
+        width: 450px;
+        height: 200px;
+        overflow: hidden;
+        border: 1px solid #777;
+        position: relative;
+        &:hover {
+          cursor: pointer;
+          border: 2px solid #0575c0;
+        }
+      }
+      &__mini-window > * {
+        transform: scale(0.3);
+        transform-origin: top left;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+    &__country {
+      margin: 7px;
+      flex: 2;
+      box-shadow: 0 0 5px #777;
+      display: flex;
+      justify-content: center;
+      &:hover {
+        box-shadow: 0 0 5px #0575c0;
+        margin: 4px;
+      }
+      &__bar {
+        overflow: hidden;
+        max-width: 300px;
+        max-height: 300px;
+      }
+    }
+  }
+  &__arrow-button {
+    background-color: #fff;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #8fcadd;
+    }
+  }
+}

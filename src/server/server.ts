@@ -501,3 +501,15 @@ export const addReplyAPI = async (reply: IReplyCreation) => {
     return {};
   }
 };
+
+// Stats
+
+export const getStatsAPI = async () => {
+  try {
+    const res = await axios.get(`${URL}/stats`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch stats:", error);
+    return [];
+  }
+};
