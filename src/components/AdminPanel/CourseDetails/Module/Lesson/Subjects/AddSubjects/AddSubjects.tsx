@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./add-subjects.scss";
 import { addSubjectAPI } from "../../../../../../../server/server";
+
+import React from "react";
+// import { Editor } from "./Editor";
+
+import { ContentState, EditorState, convertToRaw } from "draft-js";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertToHTML } from "draft-convert";
 
 type AddSubjectsProps = {
   setShowAddSection: (show: boolean) => void;
@@ -10,6 +18,19 @@ const AddSubjects: React.FC<AddSubjectsProps> = ({
   setShowAddSection,
   idLesson,
 }) => {
+  const _contentState = ContentState.createFromText("Sample content state");
+  const raw = convertToRaw(_contentState); // RawDraftContentState JSON
+  const [contentState, setContentState] = useState(raw); // ContentState JSON
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [convertedContent, setConvertedContent] = useState(null);
+  useEffect(() => {
+    let html = convertToHTML(editorState.getCurrentContent());
+    setConvertedContent(html);
+  }, [editorState]);
+  console.log(convertedContent);
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -38,9 +59,18 @@ const AddSubjects: React.FC<AddSubjectsProps> = ({
       window.location.reload();
     }
   };
+
   return (
     <div className="add-subjects-container">
       <div className="add-subjects-container__add">
+        <Editor
+          defaultContentState={contentState}
+          onContentStateChange={setContentState}
+          wrapperClassName="wrapper-class"
+          editorClassName="editor-class"
+          toolbarClassName="toolbar-class"
+        />
+        {/* <Editor /> */}
         <button
           className="cancel-btn"
           onClick={() => {
@@ -65,7 +95,7 @@ const AddSubjects: React.FC<AddSubjectsProps> = ({
             Description:
             <textarea
               className="input-style"
-              type="text"
+              // type="text"
               name="description"
               value={formData.description}
               onChange={handleChange}
