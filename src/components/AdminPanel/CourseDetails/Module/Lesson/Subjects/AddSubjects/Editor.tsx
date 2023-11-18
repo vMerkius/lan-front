@@ -1,59 +1,58 @@
-import { LexicalComposer } from "@lexical/react/LexicalComposer";
-import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
-import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
+import {$getRoot, $getSelection} from 'lexical';
+import {useEffect} from 'react';
 
-type LexicalEditorProps = {
-  config: Parameters<typeof LexicalComposer>["0"]["initialConfig"];
-};
+import {LexicalComposer} from '@lexical/react/LexicalComposer';
+import {PlainTextPlugin} from '@lexical/react/LexicalPlainTextPlugin';
+import {ContentEditable} from '@lexical/react/LexicalContentEditable';
+import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
+import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
+import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
 
-export function LexicalEditor(props: LexicalEditorProps) {
+const theme = {
+  // Theme styling goes here
+  ...
+}
+
+// Lexical React plugins are React components, which makes them
+// highly composable. Furthermore, you can lazy load plugins if
+// desired, so you don't pay the cost for plugins until you
+// actually use them.
+function MyCustomAutoFocusPlugin() {
+  const [editor] = useLexicalComposerContext();
+
+  useEffect(() => {
+    // Focus the editor when the effect fires!
+    editor.focus();
+  }, [editor]);
+
+  return null;
+}
+
+// Catch any errors that occur during Lexical updates and log them
+// or throw them as needed. If you don't throw them, Lexical will
+// try to recover gracefully without losing user data.
+function onError(error : Error) {
+  console.error(error);
+}
+
+function Editor() {
+  const initialConfig = {
+    namespace: 'MyEditor',
+    theme,
+    onError,
+  };
+
   return (
-    <LexicalComposer initialConfig={props.config}>
-      <RichTextPlugin
+    <LexicalComposer initialConfig={initialConfig}>
+      <PlainTextPlugin
         contentEditable={<ContentEditable />}
-        placeholder={<Placeholder />}
+        placeholder={<div>Enter some text...</div>}
         ErrorBoundary={LexicalErrorBoundary}
       />
+      <HistoryPlugin />
+      <MyCustomAutoFocusPlugin />
     </LexicalComposer>
   );
 }
-
-const Placeholder = () => {
-  return (
-    <div className="absolute top-[1.125rem] left-[1.125rem] opacity-50">
-      Start writing...
-    </div>
-  );
-};
-
-export function Editor() {
-  return (
-    <div
-      id="editor-wrapper"
-      className={
-        "relative prose prose-slate prose-p:my-0 prose-headings:mb-4 prose-headings:mt-2"
-      }
-    >
-      <LexicalEditor
-        config={{
-          namespace: "lexical-editor",
-          theme: {
-            root: "p-4 border-slate-500 border-2 rounded h-full min-h-[200px] focus:outline-none focus-visible:border-black",
-            link: "cursor-pointer",
-            text: {
-              bold: "font-semibold",
-              underline: "underline",
-              italic: "italic",
-              strikethrough: "line-through",
-              underlineStrikethrough: "underlined-line-through",
-            },
-          },
-          onError: (error) => {
-            console.log(error);
-          },
-        }}
-      />
-    </div>
-  );
-}
+export default Editor;

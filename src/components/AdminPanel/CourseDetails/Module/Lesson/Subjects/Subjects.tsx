@@ -8,6 +8,7 @@ import {
 import "./subjects.scss";
 import { ISubject } from "../../../../../../interfaces/ISubject";
 import AddSubjects from "./AddSubjects/AddSubjects";
+import DOMPurify from "dompurify";
 
 const Subjects = ({ id }: any) => {
   const [subjects, setSubjects] = useState<ISubject[]>([]);
@@ -54,7 +55,11 @@ const Subjects = ({ id }: any) => {
               delete
             </button>
           </div>
-          <h4>{subject.description}</h4>
+          <span
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(subject.description),
+            }}
+          ></span>
         </div>
       ))}
       <div className="subject-add-bar">
