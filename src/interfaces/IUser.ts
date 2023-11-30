@@ -2,7 +2,7 @@ export interface IUser {
   id: number;
   name: string;
   email: string;
-  password: string;
+  passwordHash: string;
   dateOfBirth: Date;
   gender: string;
   country: string;

@@ -1,0 +1,58 @@
+.sentence {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10px 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid #ddd;
+  padding: 10px 0px;
+
+  &__main {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+
+    &__delete-btn {
+      position: absolute;
+      right: 10px;
+      top: 4px;
+      background-color: #fff;
+      padding: 1px 7px;
+      border: 1px solid #777;
+
+      &:hover {
+        cursor: pointer;
+        background-color: #ee6767;
+        color: #fff;
+      }
+    }
+  }
+}
+
+.sentence-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  h3,
+  h4 {
+    margin: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    h1,
+    h2 {
+      margin: 10px 0px 0px 10px;
+    }
+
+    &__button {
+      margin: 10px 10px 0px 0px;
+    }
+  }
+}

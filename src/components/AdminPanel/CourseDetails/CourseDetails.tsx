@@ -57,6 +57,9 @@ const CourseDetails = () => {
   const handleClickLessons = (idModule: number) => {
     navigate(`/courses/${id}/module/${idModule}/lessons`);
   };
+  const handleClickSentences = (idModule: number) => {
+    navigate(`/courses/${id}/module/${idModule}/sentences`);
+  };
   const handleAddClick = (module: boolean) => {
     module === true ? setAddModule(true) : setAddModule(false);
     setShowAddSection(true);
@@ -224,6 +227,15 @@ const CourseDetails = () => {
                 </div>
               )}
               <div className="course-details__module-buttons">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleClickSentences(module.id);
+                  }}
+                  className="course-details__module-buttons__button"
+                >
+                  sentences
+                </button>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();

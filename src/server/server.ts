@@ -9,6 +9,7 @@ import { ICourseCreation } from "../interfaces/ICourse";
 import { ISubject, ISubjectCreation } from "../interfaces/ISubject";
 import { IReplyCreation } from "../interfaces/IReply";
 import { IReport } from "../interfaces/IReport";
+import { ISentenceCreation } from "../interfaces/ISentence";
 const URL = "https://localhost:7275/api";
 
 // User API
@@ -510,6 +511,65 @@ export const getStatsAPI = async () => {
     return res.data;
   } catch (error) {
     console.error("Failed to fetch stats:", error);
+    return [];
+  }
+};
+
+// Sentences
+
+export const getSentenceAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/sentence/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch sentence:", error);
+    return [];
+  }
+};
+
+export const getSentencesAPI = async () => {
+  try {
+    const res = await axios.get(`${URL}/sentence`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch sentences:", error);
+    return [];
+  }
+};
+export const deleteSentenceAPI = async (id: number) => {
+  try {
+    const res = await axios.delete(`${URL}/sentence/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to delete sentence:", error);
+    return {};
+  }
+};
+export const addSentenceAPI = async (sentence: ISentenceCreation) => {
+  try {
+    const res = await axios.post(`${URL}/sentence`, sentence);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add sentence:", error);
+    return {};
+  }
+};
+export const addSentencesAPI = async (sentences: Array<ISentenceCreation>) => {
+  try {
+    const res = await axios.post(`${URL}/sentence/multiple`, sentences);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to add sentences:", error);
+    return {};
+  }
+};
+
+export const getModuleSentencesAPI = async (id: number) => {
+  try {
+    const res = await axios.get(`${URL}/module/all/sentences/${id}`);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to fetch sentences:", error);
     return [];
   }
 };

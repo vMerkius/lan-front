@@ -34,11 +34,11 @@ const UserTable: React.FC<UserTableProps> = ({
   const handleClickMore = (id: number) => {
     navigate(`/users/${id}`);
   };
-  const hidePassword = (password: string, userId: number) => {
+  const hidePassword = (passwordHash: string, userId: number) => {
     if (showPassword === userId) {
-      return password;
+      return passwordHash;
     } else {
-      return password.replace(/./g, "*");
+      return passwordHash.replace(/./g, "*");
     }
   };
   const getAge = (dateOfBirth: Date) => {
@@ -63,7 +63,7 @@ const UserTable: React.FC<UserTableProps> = ({
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
+            {/* <th>Password</th> */}
             <th>Age</th>
             <th>Gender</th>
             <th>Country</th>
@@ -100,7 +100,7 @@ const UserTable: React.FC<UserTableProps> = ({
                 </>
               )}
 
-              <td
+              {/* <td
                 className="users-container__table__body__row__password"
                 onClick={() => {
                   showPassword === user.id
@@ -111,17 +111,17 @@ const UserTable: React.FC<UserTableProps> = ({
               >
                 {showPassword !== user.id ? (
                   <>
-                    {hidePassword(user.password, user.id)}
+                    {hidePassword(user.passwordHash, user.id)}
                     <img src={ShowIcon} width="22px" alt="Show Password Icon" />
                   </>
                 ) : (
                   <>
-                    {user.password}
+                    {user.passwordHash}
 
                     <img src={HideIcon} width="22px" alt="Hide Password Icon" />
                   </>
                 )}
-              </td>
+              </td> */}
               <td>{getAge(user.dateOfBirth)}</td>
               <td>{user.gender}</td>
 
