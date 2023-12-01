@@ -9,7 +9,7 @@ import { ICourseCreation } from "../interfaces/ICourse";
 import { ISubject, ISubjectCreation } from "../interfaces/ISubject";
 import { IReplyCreation } from "../interfaces/IReply";
 import { IReport } from "../interfaces/IReport";
-import { ISentenceCreation } from "../interfaces/ISentence";
+import { ISentence, ISentenceCreation } from "../interfaces/ISentence";
 const URL = "https://localhost:7275/api";
 
 // User API
@@ -542,6 +542,15 @@ export const deleteSentenceAPI = async (id: number) => {
     return res.data;
   } catch (error) {
     console.error("Failed to delete sentence:", error);
+    return {};
+  }
+};
+export const editSentenceAPI = async (id: number, sentence: ISentence) => {
+  try {
+    const res = await axios.put(`${URL}/sentence/${id}`, sentence);
+    return res.data;
+  } catch (error) {
+    console.error("Failed to edit sentence:", error);
     return {};
   }
 };

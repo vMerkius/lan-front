@@ -7,17 +7,22 @@ import { useParams } from "react-router";
 import { ISentence } from "../../../../../interfaces/ISentence";
 import "./sentence.scss";
 import AddSentences from "./AddSentences/AddSentences";
+import EditSentence from "./EditSentence";
 
 const Sentences = () => {
   const value = useParams();
-  const id = Number(value.idModule);
+  const idModule = Number(value.idModule);
   const [sentences, setSentences] = useState<ISentence[]>([]);
+  const [editingSentenceId, setEditingSentenceId] = useState<number | null>(
+    null
+  );
+
   const [showAddSentencesSection, setShowAddSentencesSection] =
     useState<boolean>(false);
 
   useEffect(() => {
     const fetchSentences = async () => {
-      const fetchedSentences = await getModuleSentencesAPI(id);
+      const fetchedSentences = await getModuleSentencesAPI(idModule);
       setSentences(fetchedSentences);
     };
     fetchSentences();
@@ -50,13 +55,28 @@ const Sentences = () => {
       {showAddSentencesSection && (
         <AddSentences
           setShowAddSentencesSection={setShowAddSentencesSection}
-          mId={id}
+          mId={idModule}
         />
       )}
       {sentences.map((sentence) => (
-        <div className="sentence" key={sentence.id}>
+        <div
+          className="sentence"
+          key={sentence.id}
+          onClick={(e) => {
+            e.stopPropagation();
+            setEditingSentenceId(null);
+          }}
+        >
           <div className="sentence__main">
-            <h3>{sentence.content}</h3>
+            <EditSentence
+              editingSentenceId={editingSentenceId}
+              sentence={sentence}
+              setEditingSentenceId={setEditingSentenceId}
+              idModule={idModule}
+              sentences={sentences}
+              setSentences={setSentences}
+            />
+            {/* <h3>{sentence.content}</h3> */}
             <button
               className="sentence__main__delete-btn"
               onClick={(e) => {
