@@ -19,19 +19,31 @@ const EditSentence: React.FC<EditFlashcardProps> = ({
   sentences,
   setSentences,
 }) => {
-  const [editingData, setEditingData] = useState<string>(sentence.content);
+  const [editingDataOriginal, setEditingDataOriginal] = useState<string>(
+    sentence.original
+  );
+  const [editingDataTranslated, setEditingDataTranslated] = useState<string>(
+    sentence.translated
+  );
 
   const handleEdit = async (id: number) => {
     const dataSend: ISentence = {
       id: id,
-      content: editingData,
+      original: editingDataOriginal,
+      translated: editingDataTranslated,
       moduleId: idModule,
     };
 
     try {
       await editSentenceAPI(id, dataSend);
       const updatedSentences = sentences.map((s) =>
-        s.id === id ? { ...s, content: editingData } : s
+        s.id === id
+          ? {
+              ...s,
+              original: editingDataOriginal,
+              translated: editingDataTranslated,
+            }
+          : s
       );
       console.log(updatedSentences);
       setSentences(updatedSentences);
@@ -44,14 +56,15 @@ const EditSentence: React.FC<EditFlashcardProps> = ({
   return (
     <>
       {editingSentenceId !== sentence.id ? (
-        <h3
+        <div
           onClick={(e) => {
             e.stopPropagation();
             setEditingSentenceId(sentence.id);
           }}
         >
-          {sentence.content}
-        </h3>
+          <h3>{sentence.original}</h3>
+          <h3>{sentence.translated}</h3>
+        </div>
       ) : (
         <div
           className="input-container"
@@ -62,8 +75,14 @@ const EditSentence: React.FC<EditFlashcardProps> = ({
           <input
             className="input-style"
             type="text"
-            value={editingData}
-            onChange={(e) => setEditingData(e.target.value)}
+            value={editingDataOriginal}
+            onChange={(e) => setEditingDataOriginal(e.target.value)}
+          />
+          <input
+            className="input-style"
+            type="text"
+            value={editingDataTranslated}
+            onChange={(e) => setEditingDataTranslated(e.target.value)}
           />
           <button
             className="input-save"

@@ -1,6 +1,7 @@
 export interface ISentence {
   id: number;
-  content: string;
+  original: string;
+  translated: string;
   moduleId: number;
 }
 

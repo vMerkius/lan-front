@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { addSentencesAPI } from "../../../../../../server/server";
+import { ISentence } from "../../../../../../interfaces/ISentence";
 
 type AddWordProps = {
   setShowAddSentencesSection: (show: boolean) => void;
@@ -12,7 +13,8 @@ const AddSentences: React.FC<AddWordProps> = ({
 }) => {
   const [formSentences, setFormSentences] = useState([
     {
-      content: "",
+      original: "",
+      translated: "",
       moduleId: mId,
     },
   ]);
@@ -39,7 +41,7 @@ const AddSentences: React.FC<AddWordProps> = ({
   const handleAdd = async () => {
     let check = true;
     for (const sentence of formSentences) {
-      if (sentence.content === "") {
+      if (sentence.original === "" || sentence.translated === "") {
         alert("Please fill all the fields for every sentence");
         check = false;
       }
@@ -71,9 +73,17 @@ const AddSentences: React.FC<AddWordProps> = ({
             >
               <label className="add-words-container__add__form__row">
                 <input
-                  name="content"
-                  placeholder="Content"
-                  value={sentence.content}
+                  name="original"
+                  placeholder="original"
+                  value={sentence.original}
+                  onChange={(e) => handleChange(index, e)}
+                />
+              </label>
+              <label className="add-words-container__add__form__row">
+                <input
+                  name="translated"
+                  placeholder="translated"
+                  value={sentence.translated}
                   onChange={(e) => handleChange(index, e)}
                 />
               </label>
