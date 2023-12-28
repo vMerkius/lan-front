@@ -1,6 +1,8 @@
 import React from "react";
-import ArrowRightIcon from "../../../assets/icons/arrow-right-icon.svg";
-import ArrowLeftIcon from "../../../assets/icons/arrow-left-icon.svg";
+import ArrowRightIcon from "../../../assets/icons/arrow-right.svg";
+import ArrowLeftIcon from "../../../assets/icons/arrow-left.svg";
+import ArrowRightMaxIcon from "../../../assets/icons/arrow-right-max.svg";
+import ArrowLeftMaxIcon from "../../../assets/icons/arrow-left-max.svg";
 import "./paging-panel.scss";
 
 type PagingPanelProps = {
@@ -69,7 +71,7 @@ const PagingPanel: React.FC<PagingPanelProps> = ({
         onClick={handleMinClick}
         disabled={currentPage === 1}
       >
-        <img src={ArrowLeftIcon} alt="arrow left icon" width="30px" />
+        <img src={ArrowLeftMaxIcon} alt="arrow left icon" width="30px" />
       </button>
       <button
         className="paging-panel-container__button"
@@ -93,7 +95,7 @@ const PagingPanel: React.FC<PagingPanelProps> = ({
         onClick={handleMaxClick}
         disabled={currentPage === totalPages}
       >
-        <img src={ArrowRightIcon} alt="arrow right icon" width="30px" />
+        <img src={ArrowRightMaxIcon} alt="arrow right icon" width="30px" />
       </button>
     </div>
   );

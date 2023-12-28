@@ -13,11 +13,12 @@ const UserDetails = () => {
     id: 0,
     name: "",
     email: "",
-    password: "",
+    passwordHash: "",
     dateOfBirth: new Date(),
     gender: "",
     country: "",
     imageUrl: "",
+    isAdmin: false,
   });
   const [userCourses, setUserCourses] = useState<ICourse[]>([]);
   const value = useParams();

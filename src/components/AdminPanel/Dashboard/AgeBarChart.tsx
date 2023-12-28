@@ -25,7 +25,6 @@ const AgeBarChart: React.FC<AgeBarChartProps> = ({ data }) => {
             },
           }}
           tickValues={data.map((d) => d.ageGroup)}
-          // label="Age Groups"
         />
         <VictoryAxis
           style={{
@@ -35,7 +34,7 @@ const AgeBarChart: React.FC<AgeBarChartProps> = ({ data }) => {
               verticalAnchor: "middle",
             },
           }}
-          dependentAxis /*label="Count"*/
+          dependentAxis
         />
         <VictoryBar
           data={data}

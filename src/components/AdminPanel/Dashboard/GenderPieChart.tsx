@@ -1,12 +1,10 @@
-import { VictoryPie, VictoryLabel } from "victory";
+import { VictoryPie } from "victory";
 
 type GenderPieChartProps = {
   data: { x: string; y: number }[];
 };
 
 const GenderPieChart: React.FC<GenderPieChartProps> = ({ data }) => {
-  console.log(data);
-
   return (
     <div className="dashboard__age-section__age-pie">
       <VictoryPie

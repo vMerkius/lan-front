@@ -40,8 +40,10 @@ const Users = () => {
     handleDeleteChosen();
   }, [reply]);
   useEffect(() => {
-    const filteredUsers = users.filter((user) =>
-      user.name.toLowerCase().includes(searchValue.toLowerCase())
+    const filteredUsers = users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(searchValue.toLowerCase()) &&
+        user.isAdmin === false
     );
 
     const startIndex = (currentPage - 1) * itemsPerPage;

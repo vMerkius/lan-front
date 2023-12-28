@@ -6,6 +6,27 @@
   &__navigation {
     height: 100%;
   }
+  &__logo-container {
+    margin: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    h2 {
+      cursor: pointer;
+
+      margin: 0;
+    }
+    img {
+      cursor: pointer;
+    }
+    &__logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #000;
+      text-decoration: none;
+    }
+  }
 }
 .navigation-list {
   text-decoration: none;
@@ -24,6 +45,7 @@
     background-color: #fff;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+
     width: 70%;
     text-decoration: none;
 
@@ -32,6 +54,29 @@
       cursor: pointer;
       background-color: #cbe6ef;
       border-left: 10px solid #8fcadd;
+      scale: 1.1;
     }
+  }
+}
+
+.btn-logout {
+  cursor: pointer;
+
+  margin: 0 auto;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+  background-color: #e93a3a;
+  width: 70%;
+  height: 50px;
+  color: #fff;
+
+  &:hover {
+    scale: 1.1;
+    background-color: rgba(#e93a3a, 0.9);
   }
 }

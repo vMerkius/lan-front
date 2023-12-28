@@ -48,9 +48,12 @@
     &__item {
       border: 1px solid #777;
       padding: 10px;
+      text-decoration: none;
+      list-style: none;
       &:hover {
         cursor: pointer;
         background-color: #cbe6ef;
+        scale: 1.1;
       }
       &__navi {
         &:hover {

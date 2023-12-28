@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { addSentencesAPI } from "../../../../../../server/server";
-import { ISentence } from "../../../../../../interfaces/ISentence";
 
 type AddWordProps = {
   setShowAddSentencesSection: (show: boolean) => void;
@@ -29,7 +28,10 @@ const AddSentences: React.FC<AddWordProps> = ({
     setFormSentences(list);
   };
   const handleAddClick = () => {
-    setFormSentences([...formSentences, { content: "", moduleId: mId }]);
+    setFormSentences([
+      ...formSentences,
+      { original: "", translated: "", moduleId: mId },
+    ]);
   };
 
   const handleRemoveClick = (index: number) => {

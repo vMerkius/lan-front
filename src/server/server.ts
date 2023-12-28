@@ -12,6 +12,21 @@ import { IReport } from "../interfaces/IReport";
 import { ISentence, ISentenceCreation } from "../interfaces/ISentence";
 const URL = "https://localhost:7275/api";
 
+export const loginAdminPI = async (email: string, password: string) => {
+  try {
+    const res = await axios.post(`${URL}/user/login/admin`, null, {
+      params: {
+        email: email,
+        password: password,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error("Failed to login user:", error);
+    return {};
+  }
+};
+
 // User API
 export const getUsersAPI = async () => {
   try {

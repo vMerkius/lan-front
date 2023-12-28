@@ -1,8 +1,4 @@
-import ShowIcon from "../../../assets/icons/eye_show.svg";
-import HideIcon from "../../../assets/icons/eye_hide.svg";
 import MoreIcon from "../../../assets/icons/more-icon.svg";
-
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import { IUser } from "../../../interfaces/IUser";
 
@@ -22,7 +18,6 @@ const UserTable: React.FC<UserTableProps> = ({
   deleteUsers,
 }) => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState<number | null>(null);
 
   const shorterWord = (word: string, quantity: number) => {
     if (word.length > quantity) {
@@ -34,13 +29,7 @@ const UserTable: React.FC<UserTableProps> = ({
   const handleClickMore = (id: number) => {
     navigate(`/users/${id}`);
   };
-  const hidePassword = (passwordHash: string, userId: number) => {
-    if (showPassword === userId) {
-      return passwordHash;
-    } else {
-      return passwordHash.replace(/./g, "*");
-    }
-  };
+
   const getAge = (dateOfBirth: Date) => {
     const dateOfBirthStr = dateOfBirth.toString();
     const datePart = dateOfBirthStr.split("T")[0];
@@ -63,7 +52,6 @@ const UserTable: React.FC<UserTableProps> = ({
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            {/* <th>Password</th> */}
             <th>Age</th>
             <th>Gender</th>
             <th>Country</th>
@@ -99,29 +87,6 @@ const UserTable: React.FC<UserTableProps> = ({
                   <td>{user.email}</td>
                 </>
               )}
-
-              {/* <td
-                className="users-container__table__body__row__password"
-                onClick={() => {
-                  showPassword === user.id
-                    ? setShowPassword(null)
-                    : setShowPassword(user.id);
-                  console.log(showPassword);
-                }}
-              >
-                {showPassword !== user.id ? (
-                  <>
-                    {hidePassword(user.passwordHash, user.id)}
-                    <img src={ShowIcon} width="22px" alt="Show Password Icon" />
-                  </>
-                ) : (
-                  <>
-                    {user.passwordHash}
-
-                    <img src={HideIcon} width="22px" alt="Hide Password Icon" />
-                  </>
-                )}
-              </td> */}
               <td>{getAge(user.dateOfBirth)}</td>
               <td>{user.gender}</td>
 

@@ -8,9 +8,6 @@ import Users from "./components/AdminPanel/Users/User";
 import Courses from "./components/AdminPanel/Courses/Courses";
 import CourseDetails from "./components/AdminPanel/CourseDetails/CourseDetails";
 
-import "./i18n";
-import { useTranslation, Trans } from "react-i18next";
-// import Module from "./components/AdminPanel/CourseDetails/Module/Module";
 import Quiz from "./components/AdminPanel/CourseDetails/Quiz/Quiz";
 import Flashcards from "./components/AdminPanel/CourseDetails/Module/Flashcard/Flashcard";
 import "./shared.scss";
@@ -21,22 +18,15 @@ import { useState } from "react";
 import Reports from "./components/AdminPanel/Reports/Reports";
 import ReportDetails from "./components/AdminPanel/Reports/ReportDetails/ReportsDetails";
 import Sentences from "./components/AdminPanel/CourseDetails/Module/Sentence/Sentences";
+import UserForm from "./components/Login/UserForm";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
-
-  const { t, i18n } = useTranslation();
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
 
   return (
     <Router>
       <SearchBarContext.Provider value={{ searchValue, setSearchValue }}>
         <div className="app">
-          {/* <button onClick={() => changeLanguage("en")}>en</button>
-        <button onClick={() => changeLanguage("pl")}>pl</button>
-        <h1>{t("dashboard.hello")}</h1> */}
           <div className="side">
             <SideBar></SideBar>
           </div>
@@ -44,6 +34,7 @@ function App() {
             <SearchBar></SearchBar>
             <div className="admin-panel-container">
               <Routes>
+                <Route path="/login" element={<UserForm />} />
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/stats" element={<Stats />} />
                 <Route path="/users" element={<Users />} />

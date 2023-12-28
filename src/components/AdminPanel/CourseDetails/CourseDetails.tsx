@@ -46,7 +46,7 @@ const CourseDetails = () => {
       setModules(fetchedModules);
     };
     fetchCourses();
-  }, []);
+  }, [id]);
 
   const handleClickQuiz = (idQuiz: number) => {
     navigate(`/courses/${id}/quiz/${idQuiz}`);
@@ -296,7 +296,6 @@ const CourseDetails = () => {
               }}
               className="course-details__bar course-details__bar--details"
             >
-              {/* <h4>{quiz.name}</h4> */}
               {editingIdQuiz !== quiz.id ? (
                 <h4
                   onClick={(e) => {

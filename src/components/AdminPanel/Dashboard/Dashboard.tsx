@@ -51,7 +51,8 @@ const Dashboard = () => {
         <div className="dashboard__info-section__report">
           <h1>Reports to reply: {stats.reports}</h1>
           <div
-            onClick={() => {
+            onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+              e.stopPropagation();
               navigate("/reports");
             }}
             className="dashboard__info-section__report__mini-window"
@@ -61,14 +62,14 @@ const Dashboard = () => {
         </div>
       </section>
 
-      <button
+      {/* <button
         className="dashboard__arrow-button"
         onClick={() => {
           console.log("sdd");
         }}
       >
         <img src={ArrowRightIcon} alt="arrow right icon" width="30px" />
-      </button>
+      </button> */}
     </div>
   );
 };
